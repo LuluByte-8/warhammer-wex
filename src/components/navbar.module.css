@@ -1,0 +1,16 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--darkgrey);
+}
+
+.navbar p {
+  float: left;
+  display: block;
+  color: var(--white);
+  text-align: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: var(--fontsize-s);
+}

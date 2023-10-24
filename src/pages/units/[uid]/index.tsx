@@ -1,26 +1,67 @@
-import styles from "@/styles/Unit.module.css";
+import styles from "./unit.module.css";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { NavBar } from "@/components/navbar";
 
-const Unit: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (
-  props
-) => {
+const Unit: React.FC<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({
+  name,
+  movement,
+  toughness,
+  savingthrow,
+  wounds,
+  leadership,
+  objectivecontrol,
+}) => {
   return (
     <main className={`${styles.main}`}>
-      <div className={`${styles.navbar}`}>
-        <p>Home</p>
-        <p>Unit Preview</p>
-        <p>Army Builder</p>
-        <p>Account Management</p>
-      </div>
+      <NavBar />
+      <div className={`${styles.maincontainer}`}>
+        <div className={`${styles.container}`}>
+          <div className={`${styles.unitname}`}>{name}</div>
+        </div>
 
-      <div className={`${styles.unitcard}`}>
-        <div className={`${styles.stats}`}>
-          <h1>Test Data</h1>
+        <div className={`${styles.statscontainer}`}>
+          <div className={`${styles.stattitle}`}>
+            <p>M</p>
+            <p className={`${styles.statvalue}`}>{movement}</p>
+          </div>
+
+          <div className={`${styles.stattitle}`}>
+            <p>T</p>
+            <p className={`${styles.statvalue}`}>{toughness}</p>
+          </div>
+
+          <div className={`${styles.stattitle}`}>
+            <p>Sv</p>
+            <p className={`${styles.statvalue}`}>{savingthrow}</p>
+          </div>
+
+          <div className={`${styles.stattitle}`}>
+            <p>W</p>
+            <p className={`${styles.statvalue}`}>{wounds}</p>
+          </div>
+
+          <div className={`${styles.stattitle}`}>
+            <p>L</p>
+            <p className={`${styles.statvalue}`}>{leadership}</p>
+          </div>
+
+          <div className={`${styles.stattitle}`}>
+            <p>OC</p>
+            <p className={`${styles.statvalue}`}>{objectivecontrol}</p>
+          </div>
         </div>
       </div>
     </main>
   );
 };
+
+{
+  /* <div className={`${styles.statvalue}`}>
+            <p>5"</p>
+          </div> */
+}
 
 export default Unit;
 
@@ -40,12 +81,12 @@ interface IUnit {
   objectivecontrol: number;
 }
 
-const getServerSideProps: GetServerSideProps<IUnit> = async () => {
+export const getServerSideProps: GetServerSideProps<IUnit> = async () => {
   return {
     props: {
-      name: "Test Name",
-      movement: '6"',
-      toughness: 4,
+      name: "Test Unit",
+      movement: '5"',
+      toughness: 5,
       savingthrow: "3+",
       wounds: 2,
       leadership: "6+",
