@@ -2,6 +2,9 @@ import styles from "./unit.module.css";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
 
+// const units = [{name}]
+// units.map(unit => <div></div>)
+
 const Unit: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({
@@ -81,7 +84,10 @@ interface IUnit {
   objectivecontrol: number;
 }
 
-export const getServerSideProps: GetServerSideProps<IUnit> = async () => {
+export const getServerSideProps: GetServerSideProps<IUnit> = async (
+  context
+) => {
+  console.log(context.query);
   return {
     props: {
       name: "Test Unit",
