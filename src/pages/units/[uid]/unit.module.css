@@ -1,0 +1,36 @@
+.maincontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1000px;
+  background-color: var(--grey);
+  box-shadow: var(--boxshadow);
+}
+
+.container {
+  padding: var(--spacing-unit-m);
+}
+
+.unitname {
+  flex-basis: 100%;
+  justify-content: left;
+  font-size: var(--fontsize-mp);
+}
+
+.statscontainer {
+  display: flex;
+  padding: var(--spacing-unit-m);
+}
+
+.stattitle {
+  padding: 0 var(--spacing-unit-m);
+  order: 1;
+  font-size: var(--fontsize-m);
+  flex-basis: 10%;
+}
+
+.statvalue {
+  width: 2.8rem;
+  height: 2.8rem;
+  background-color: white;
+}

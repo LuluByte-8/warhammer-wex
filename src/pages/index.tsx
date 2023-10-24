@@ -17,10 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div>
-          {" "}
-          <NavBar />{" "}
-        </div>
+        <NavBar />
 
         <div className={`${styles.content}`}>
           <div className={`${styles.banner}`}>
