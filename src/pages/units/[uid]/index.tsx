@@ -1,11 +1,9 @@
 import styles from "./unit.module.css";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
+import { IUnit, getUnitById } from "@/api/mock/units";
 
-// const units = [{name}]
-// units.map(unit => <div></div>)
-
-const Unit: React.FC<
+const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({
   name,
@@ -60,43 +58,29 @@ const Unit: React.FC<
   );
 };
 
-{
-  /* <div className={`${styles.statvalue}`}>
-            <p>5"</p>
-          </div> */
-}
-
-export default Unit;
-
-// type FunctionType = (arg:number) => string;
-
-// const myFunc: FunctionType = (arg:number) => {
-//     return 'Hello World'
-// }
-
-interface IUnit {
-  name: string;
-  movement: string;
-  toughness: number;
-  savingthrow: string;
-  wounds: number;
-  leadership: string;
-  objectivecontrol: number;
-}
+export default UnitPage;
 
 export const getServerSideProps: GetServerSideProps<IUnit> = async (
   context
 ) => {
-  console.log(context.query);
+  console.log(context.query.uid);
+  if (typeof context.query.uid !== "string") {
+    return {
+      notFound: true,
+    };
+  }
+
+  const unit = getUnitById(context.query.uid);
+
+  if (!unit) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      name: "Test Unit",
-      movement: '5"',
-      toughness: 5,
-      savingthrow: "3+",
-      wounds: 2,
-      leadership: "6+",
-      objectivecontrol: 2,
+      ...unit,
     },
   };
 };
