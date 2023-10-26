@@ -5,7 +5,7 @@
   background-color: var(--darkgrey);
 }
 
-.linkclass {
+.linkClass {
   float: left;
   display: block;
   color: var(--white);

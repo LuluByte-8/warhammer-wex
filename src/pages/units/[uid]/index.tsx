@@ -9,10 +9,10 @@ const UnitPage: React.FC<
   name,
   movement,
   toughness,
-  savingthrow,
+  savingThrow,
   wounds,
   leadership,
-  objectivecontrol,
+  objectiveControl,
 }) => {
   return (
     <main className={`${styles.main}`}>
@@ -35,7 +35,7 @@ const UnitPage: React.FC<
 
           <div className={`${styles.stattitle}`}>
             <p>Sv</p>
-            <p className={`${styles.statvalue}`}>{savingthrow}</p>
+            <p className={`${styles.statvalue}`}>{savingThrow}</p>
           </div>
 
           <div className={`${styles.stattitle}`}>
@@ -50,7 +50,7 @@ const UnitPage: React.FC<
 
           <div className={`${styles.stattitle}`}>
             <p>OC</p>
-            <p className={`${styles.statvalue}`}>{objectivecontrol}</p>
+            <p className={`${styles.statvalue}`}>{objectiveControl}</p>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const Unit: React.FC<
 
       {units.map((unit) => {
         return (
-          <main>
+          <div key={unit.id}>
             <Link
               href={`units/${unit.id}`}
               key={unit.name}
@@ -34,7 +34,7 @@ const Unit: React.FC<
 
               <div>
                 <p>Sv</p>
-                <p>{unit.savingthrow}+</p>
+                <p>{unit.savingThrow}+</p>
               </div>
 
               <div>
@@ -49,10 +49,10 @@ const Unit: React.FC<
 
               <div>
                 <p>OC</p>
-                <p>{unit.objectivecontrol}</p>
+                <p>{unit.objectiveControl}</p>
               </div>
             </div>
-          </main>
+          </div>
         );
       })}
     </main>

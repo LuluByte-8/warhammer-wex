@@ -4,5 +4,5 @@
 
 .statscontainer {
   display: flex;
-  gap: 10px;
+  gap: var(--fixed-s-gap);
 }
