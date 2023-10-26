@@ -1,12 +1,24 @@
 import styles from "@/components/navbar.module.css";
+import Link from "next/link";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const NavBar: React.FC = () => {
   return (
-    <div className={`${styles.navbar}`}>
-      <p>Home</p>
-      <p>Unit Preview</p>
-      <p>Army Builder</p>
-      <p>Account Management</p>
+    <div className={`${styles.navbar} ${inter.className}`}>
+      <Link className={`${styles.linkClass}`} href="/">
+        Home
+      </Link>
+      <Link className={`${styles.linkClass}`} href="/units">
+        Units
+      </Link>
+      <Link className={`${styles.linkClass}`} href="/">
+        Army Builder
+      </Link>
+      <Link className={`${styles.linkClass}`} href="/">
+        Account Management
+      </Link>
     </div>
   );
 };

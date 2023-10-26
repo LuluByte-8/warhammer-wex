@@ -1,17 +1,18 @@
 import styles from "./unit.module.css";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
+import { IUnit, getUnitById } from "@/api/mock/units";
 
-const Unit: React.FC<
+const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({
   name,
   movement,
   toughness,
-  savingthrow,
+  savingThrow,
   wounds,
   leadership,
-  objectivecontrol,
+  objectiveControl,
 }) => {
   return (
     <main className={`${styles.main}`}>
@@ -34,7 +35,7 @@ const Unit: React.FC<
 
           <div className={`${styles.stattitle}`}>
             <p>Sv</p>
-            <p className={`${styles.statvalue}`}>{savingthrow}</p>
+            <p className={`${styles.statvalue}`}>{savingThrow}</p>
           </div>
 
           <div className={`${styles.stattitle}`}>
@@ -49,7 +50,7 @@ const Unit: React.FC<
 
           <div className={`${styles.stattitle}`}>
             <p>OC</p>
-            <p className={`${styles.statvalue}`}>{objectivecontrol}</p>
+            <p className={`${styles.statvalue}`}>{objectiveControl}</p>
           </div>
         </div>
       </div>
@@ -57,40 +58,29 @@ const Unit: React.FC<
   );
 };
 
-{
-  /* <div className={`${styles.statvalue}`}>
-            <p>5"</p>
-          </div> */
-}
+export default UnitPage;
 
-export default Unit;
+export const getServerSideProps: GetServerSideProps<IUnit> = async (
+  context
+) => {
+  console.log(context.query.uid);
+  if (typeof context.query.uid !== "string") {
+    return {
+      notFound: true,
+    };
+  }
 
-// type FunctionType = (arg:number) => string;
+  const unit = getUnitById(context.query.uid);
 
-// const myFunc: FunctionType = (arg:number) => {
-//     return 'Hello World'
-// }
+  if (!unit) {
+    return {
+      notFound: true,
+    };
+  }
 
-interface IUnit {
-  name: string;
-  movement: string;
-  toughness: number;
-  savingthrow: string;
-  wounds: number;
-  leadership: string;
-  objectivecontrol: number;
-}
-
-export const getServerSideProps: GetServerSideProps<IUnit> = async () => {
   return {
     props: {
-      name: "Test Unit",
-      movement: '5"',
-      toughness: 5,
-      savingthrow: "3+",
-      wounds: 2,
-      leadership: "6+",
-      objectivecontrol: 2,
+      ...unit,
     },
   };
 };
