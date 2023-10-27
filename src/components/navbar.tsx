@@ -10,8 +10,8 @@ export const NavBar: React.FC = () => {
       <Link className={`${styles.linkClass}`} href="/">
         Home
       </Link>
-      <Link className={`${styles.linkClass}`} href="/units">
-        Units
+      <Link className={`${styles.linkClass}`} href="/armies">
+        Army & Unit Viewer
       </Link>
       <Link className={`${styles.linkClass}`} href="/">
         Army Builder

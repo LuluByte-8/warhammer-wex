@@ -2,10 +2,12 @@
   --white: #ffffff;
   --grey: grey;
   --darkgrey: #333;
+  --blue: blue;
 
   --boxshadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
   --fontsize-xs: 20px;
+  --fontsize-s: 30px;
   --fontsize-m: 40px;
   --fontsize-mp: 50px;
 

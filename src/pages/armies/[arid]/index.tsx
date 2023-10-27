@@ -1,21 +1,22 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
 import Link from "next/link";
-import styles from "@/pages/units/unitlist.module.css";
-import { IUnit, getUnits } from "@/api/mock/units";
+import styles from "./unitlist.module.css";
+import { IUnit, getUnits, getUnitsByArmyId } from "@/api/mock/units";
+import { IArmy, getArmyById } from "@/api/mock/army";
 
-const Unit: React.FC<
+const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ units }) => {
+> = ({ units, army }) => {
   return (
     <main>
       <NavBar />
-
+      <h1>{army.name}</h1>
       {units.map((unit) => {
         return (
           <div key={unit.id}>
             <Link
-              href={`units/${unit.id}`}
+              href={`${unit.armyId}/units/${unit.id}`}
               key={unit.name}
               className={`${styles.id}`}
             >
@@ -59,19 +60,40 @@ const Unit: React.FC<
   );
 };
 
-export default Unit;
+export default ArmyPage;
 
-interface IUnitPageProps {
+interface IArmyPageProps {
   units: IUnit[];
+  army: IArmy;
 }
 
-export const getServerSideProps: GetServerSideProps<
-  IUnitPageProps
-> = async () => {
-  const units = getUnits();
+export const getServerSideProps: GetServerSideProps<IArmyPageProps> = async (
+  context
+) => {
+  if (typeof context.query.arid !== "string") {
+    return {
+      notFound: true,
+    };
+  }
+  const arid = context.query.arid;
+  const army = getArmyById(arid);
+
+  if (!army) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const units = getUnitsByArmyId(arid);
+  if (units.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: {
       units: units,
+      army: army,
     },
   };
 };
