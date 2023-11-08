@@ -16,13 +16,14 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.5.3",
-    "@storybook/addon-interactions": "^7.5.3",
-    "@storybook/addon-links": "^7.5.3",
+    "@storybook/addon-essentials": "^7.6.0-alpha.4",
+    "@storybook/addon-interactions": "^7.6.0-alpha.4",
+    "@storybook/addon-links": "^7.6.0-alpha.4",
+    "@storybook/addon-mdx-gfm": "^7.6.0-alpha.4",
     "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.5.3",
-    "@storybook/nextjs": "^7.5.3",
-    "@storybook/react": "^7.5.3",
+    "@storybook/blocks": "^7.6.0-alpha.4",
+    "@storybook/nextjs": "^7.6.0-alpha.4",
+    "@storybook/react": "^7.6.0-alpha.4",
     "@storybook/testing-library": "^0.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -33,7 +34,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "eslint-plugin-unused-imports": "^3.0.0",
     "prettier": "3.0.3",
-    "storybook": "^7.5.3",
+    "storybook": "^7.6.0-alpha.4",
     "typescript": "^5"
   }
 }

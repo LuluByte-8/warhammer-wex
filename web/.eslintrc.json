@@ -33,5 +33,6 @@
         ]
       }
     }
-  ]
+  ],
+  "ignorePatterns": ["**/node_modules/*", "**/dist/*"]
 }
