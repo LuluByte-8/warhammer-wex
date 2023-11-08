@@ -1,7 +1,9 @@
-import styles from "./unit.module.css";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+
+import { getUnitById,IUnit } from "@/api/mock/units";
 import { NavBar } from "@/components/navbar";
-import { IUnit, getUnitById } from "@/api/mock/units";
+
+import styles from "./unit.module.css";
 
 const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -63,7 +65,6 @@ export default UnitPage;
 export const getServerSideProps: GetServerSideProps<IUnit> = async (
   context
 ) => {
-  console.log(context.query.uid);
   if (typeof context.query.uid !== "string") {
     return {
       notFound: true,

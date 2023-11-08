@@ -1,9 +1,11 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { NavBar } from "@/components/navbar";
 import Link from "next/link";
+
+import { getArmyById,IArmy } from "@/api/mock/army";
+import { getUnitsByArmyId,IUnit } from "@/api/mock/units";
+import { NavBar } from "@/components/navbar";
+
 import styles from "./unitlist.module.css";
-import { IUnit, getUnits, getUnitsByArmyId } from "@/api/mock/units";
-import { IArmy, getArmyById } from "@/api/mock/army";
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -25,7 +27,7 @@ const ArmyPage: React.FC<
             <div className={`${styles.statscontainer}`}>
               <div>
                 <p>M</p>
-                <p>{unit.movement}"</p>
+                <p>{unit.movement}</p>
               </div>
 
               <div>

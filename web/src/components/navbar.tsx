@@ -1,6 +1,8 @@
-import styles from "@/components/navbar.module.css";
-import Link from "next/link";
+import React from "react";
 import { Inter } from "next/font/google";
+import Link from "next/link";
+
+import styles from "@/components/navbar.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

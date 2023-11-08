@@ -1,8 +1,10 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-import styles from "./army.module.css";
+
+import { getArmies, IArmy } from "@/api/mock/army";
 import { NavBar } from "@/components/navbar";
-import { IArmy, getArmies } from "@/api/mock/army";
+
+import styles from "./army.module.css";
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -25,7 +27,7 @@ const Army: React.FC<
           );
         } else {
           return (
-            <div>
+            <div key={army.armyId}>
               <div className={`${styles.armyTitle}`}>{army.name}</div>
               <br />
             </div>

@@ -1,0 +1,21 @@
+{
+  "name": "warhammerworkexperience",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rocketmakers/wex-23/warhammerworkexperience.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/rocketmakers/wex-23/warhammerworkexperience/issues"
+  },
+  "homepage": "https://gitlab.com/rocketmakers/wex-23/warhammerworkexperience#readme",
+  "dependencies": {
+    "eslint": "^8.53.0"
+  }
+}
