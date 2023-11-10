@@ -1,8 +1,0 @@
-.link {
-  font-size: var(--fontsize-m);
-}
-
-.statscontainer {
-  display: flex;
-  gap: var(--fixed-s-gap);
-}

@@ -1,0 +1,12 @@
+.link {
+  font-size: var(--fontsize-m);
+}
+
+.armyname {
+  text-align: center;
+}
+
+.statscontainer {
+  display: flex;
+  gap: var(--fixed-s-gap);
+}

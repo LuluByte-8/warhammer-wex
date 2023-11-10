@@ -1,0 +1,16 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--darkgrey);
+}
+
+.linkClass {
+  float: left;
+  display: block;
+  color: var(--white);
+  text-align: center;
+  padding: var(--spacing-unit-xxs) var(--spacing-unit-xs);
+  text-decoration: none;
+  font-size: var(--fontsize-s);
+}
