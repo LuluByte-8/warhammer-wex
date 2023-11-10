@@ -30,7 +30,20 @@
 }
 
 .statvalue {
-  width: 2.8rem;
-  height: 2.8rem;
-  background-color: white;
+  width: var(--statblock-box);
+  height: var(--statblock-box);
+  background-color: var(--white);
+}
+
+.IsTitle {
+  border: 2px solid red;
+  padding: 0 var(--spacing-unit-m);
+  font-size: var(--fontsize-m);
+  flex-basis: 10%;
+}
+
+.IsValue {
+  width: var(--statblock-box);
+  height: var(--statblock-box);
+  background-color: var(--white);
 }
