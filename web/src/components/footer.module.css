@@ -1,4 +1,4 @@
-.navbar {
+.footer {
   display: flex;
   gap: var(--spacing-unit-xxl);
   min-width: 1055px;
@@ -6,13 +6,6 @@
   width: auto;
   height: 80px;
   justify-content: space-between;
-}
-
-.logoContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
 }
 
 .linkContainer {
@@ -26,14 +19,10 @@
   color: var(--white);
   padding: var(--spacing-unit-xxs) var(--spacing-unit-xs);
   text-decoration: none;
-  font-size: var(--fontsize-s);
+  font-size: var(--fontsize-xxs);
 }
 
-.linkClass:active {
-  color: var(--limegreen);
-}
-
-.profileIconContainer {
+.IconContainer {
   display: flex;
   justify-content: center;
   align-items: center;
