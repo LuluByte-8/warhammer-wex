@@ -1,8 +1,11 @@
+import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-import styles from "./category.module.css";
+
+import { getCategories,ICategory } from "@/api/mock/category";
 import { NavBar } from "@/components/navbar";
-import { ICategory, getCategories } from "@/api/mock/category";
+
+import styles from "./category.module.css";
 
 const Category: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -14,6 +17,7 @@ const Category: React.FC<
       {categories.map((category) => {
         return (
           <Link
+
             href={`categories/${category.categoryId}/armies`}
             key={category.name}
             className={`${styles.armyLink}`}

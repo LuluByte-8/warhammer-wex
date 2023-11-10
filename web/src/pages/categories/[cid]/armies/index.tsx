@@ -1,21 +1,22 @@
+import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-import styles from "./army.module.css";
+
+import { getArmyByCategoryId,IArmy } from "@/api/mock/army";
 import { NavBar } from "@/components/navbar";
-import { IArmy, getArmies, getArmyByCategoryId } from "@/api/mock/army";
-import { ICategory } from "@/api/mock/category";
+
+import styles from "./army.module.css";
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ category, armies }) => {
-  console.log(category);
+> = ({ armies }) => {
   return (
     <main>
       <NavBar />
-      {category.map((army) => {
+      {armies.map((army) => {
         return (
           <Link
-            href={`armies/${army.armyId}`}
+            href={`/categories/${army.categoryId}/armies/${army.armyId}`}
             key={army.name}
             className={`${styles.armyLink}`}
           >
@@ -31,7 +32,6 @@ const Army: React.FC<
 export default Army;
 
 interface IArmyListPageProps {
-  category: ICategory[];
   armies: IArmy[];
 }
 
@@ -44,18 +44,16 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
   const cid = context.query.cid;
-  const category = getArmyByCategoryId(cid);
+  const armies = getArmyByCategoryId(cid);
 
-  if (!category) {
+  if (!armies) {
     return {
       notFound: true,
     };
   }
 
-  const armies = getArmies();
   return {
     props: {
-      category: category,
       armies: armies,
     },
   };
