@@ -4,7 +4,7 @@
   min-width: 1055px;
   background-color: var(--black);
   width: auto;
-  height: 80px;
+  padding: var(--spacing-unit-xxs);
   justify-content: space-between;
 }
 
