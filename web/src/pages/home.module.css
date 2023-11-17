@@ -1,0 +1,29 @@
+.main {
+  display: flex;
+  padding: 500px 800px 260px 120px;
+  align-items: center;
+  background-color: var(--black);
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) -8%, rgba(0, 0, 0, 0.8) 50%),
+    url(../assets/hero-homepage.png),
+    lightgray 50% / cover no-repeat;
+  background-size: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.content h1 {
+  height: 10px;
+  font-size: var(--fontsize-l);
+  color: var(--limegreen);
+}
+
+.content p {
+  width: 650px;
+  color: var(--white);
+  font-size: var(--fontsize-s);
+}

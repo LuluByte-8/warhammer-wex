@@ -1,5 +1,8 @@
 :root {
-  --white: #ffffff;
+  --black: #000000;
+  --white: #fcfcfc;
+  --limegreen: #72fc58;
+
   --grey: grey;
   --darkgrey: #333;
   --blue: blue;
@@ -12,6 +15,8 @@
   --fontsize-s: 30px;
   --fontsize-m: 40px;
   --fontsize-mp: 50px;
+  --fontsize-l: 60px;
+  --fontsize-xl: 70px;
 
   --fixed-s-gap: 10px;
 
