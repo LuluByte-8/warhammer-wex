@@ -29,3 +29,7 @@
   --spacing-unit-xl: calc(3.25 * var(--spacing-unit));
   --spacing-unit-xxl: calc(5.25 * var(--spacing-unit));
 }
+
+body {
+  margin: 0;
+}
