@@ -12,8 +12,10 @@
 
 .linkContainer {
   display: flex;
-  width: 1000px;
-  height: 200px;
+  width: 100%;
+  max-width: 1000px;
+  height: min-content;
+  min-height: 200px;
   justify-content: center;
   align-items: center;
   background-size: fill;

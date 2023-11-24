@@ -30,7 +30,7 @@ export const CategoryLink: React.FC<ICategoryLink> = ({
           className={`${styles.armyLink}`}
         >
           <button className={`${styles.categorybutton} ${Opensans.className}`}>
-            See all units
+            See all armies
           </button>
         </Link>
       </div>

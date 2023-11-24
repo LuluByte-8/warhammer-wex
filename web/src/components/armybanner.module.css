@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+  position: relative;
+  gap: 15px;
+  padding: var(--spacing-unit-s);
+}
+
+.imageContainer {
+  width: 100%;
+  max-width: 600px;
+  height: min-content;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+}
+
+.textContainer {
+  white-space: initial;
+  text-wrap: balance;
+  max-width: 600px;
+}
+
+.armyDescription {
+  min-height: 100px;
+}
+
+.armybutton {
+  padding: var(--spacing-unit-s) var(--spacing-unit-l);
+  border-radius: 6px;
+  background-color: var(--neongreen);
+  border: 1px solid var(--black);
+}
+
+.armybutton:focus {
+  outline: none;
+}
