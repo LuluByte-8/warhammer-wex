@@ -1,0 +1,38 @@
+.armyLink {
+  font-size: var(--fontsize-s);
+}
+
+.armyLink:link {
+  color: var(--blue);
+}
+
+.armyLink:visited {
+  color: var(--blue);
+}
+
+.linkContainer {
+  display: flex;
+  width: 1000px;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  background-size: fill;
+  background-position: center;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.categorytitle {
+  color: var(--white);
+}
+
+.categorybutton {
+  padding: var(--spacing-unit-s) var(--spacing-unit-l);
+  border-radius: 6px;
+  background-color: var(--neongreen);
+  border: 1px solid var(--black);
+}
+
+.categorybutton:focus {
+  outline: none;
+}
