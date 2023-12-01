@@ -1,11 +1,16 @@
 import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-
-import { getArmyByCategoryId,IArmy } from "@/api/mock/army";
+import { getArmyByCategoryId, IArmy } from "@/api/mock/army";
 import { NavBar } from "@/components/navbar";
-
+import { Footer } from "@/components/footer";
 import styles from "./army.module.css";
+import hero from "@/assets/ArmyHero.png";
+import Image from "next/image";
+import { Open_Sans } from "next/font/google";
+import { ArmyBanner } from "@/components/armybanner";
+
+const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -13,18 +18,33 @@ const Army: React.FC<
   return (
     <main>
       <NavBar />
+
+      <div className={`${styles.main} ${Opensans.className}`}>
+        <div className={styles.heroContainer}>
+          <Image className={styles.heroImage} src={hero} alt="hero" />
+        </div>
+
+        <div className={`${styles.content}`}>
+          <h1>Test Heading</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur. Orci ut arcu magnis pharetra
+            consequat feugiat interdum. Adipiscing euismod id justo quam.
+          </p>
+        </div>
+      </div>
+
       {armies.map((army) => {
         return (
-          <Link
-            href={`/categories/${army.categoryId}/armies/${army.armyId}`}
-            key={army.name}
-            className={`${styles.armyLink}`}
-          >
-            <div>{army.name}</div>
-            <br />
-          </Link>
+          <ArmyBanner
+            name={army.name}
+            description={army.description}
+            armyId={army.armyId}
+            imageURL={army.bannerUrl}
+            categoryId={army.categoryId}
+          />
         );
       })}
+      <Footer />
     </main>
   );
 };
