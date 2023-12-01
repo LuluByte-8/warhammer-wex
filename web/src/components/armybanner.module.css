@@ -3,7 +3,7 @@
   flex-flow: row wrap;
   align-content: space-between;
   position: relative;
-  gap: 15px;
+  gap: var(--fixed-s-gap);
   padding: var(--spacing-unit-s);
 }
 
@@ -28,7 +28,7 @@
 
 .armybutton {
   padding: var(--spacing-unit-s) var(--spacing-unit-l);
-  border-radius: 6px;
+  border-radius: var(--border-radius-xs);
   background-color: var(--neongreen);
   border: 1px solid var(--black);
 }

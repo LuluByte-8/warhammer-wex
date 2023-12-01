@@ -37,7 +37,7 @@ const Category: React.FC<
             <CategoryLink
               name={category.name}
               categoryId={category.categoryId}
-              imageURL={category.bannerURL}
+              imageURL={category.bannerUrl}
             />
           );
         })}

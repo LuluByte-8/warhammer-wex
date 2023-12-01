@@ -39,7 +39,7 @@ const Army: React.FC<
             name={army.name}
             description={army.description}
             armyId={army.armyId}
-            imageURL={army.bannerURL}
+            imageURL={army.bannerUrl}
             categoryId={army.categoryId}
           />
         );

@@ -35,7 +35,7 @@
 
 .heroImage {
   width: 70%;
-  object-fit: fill;
+  object-fit: cover;
   filter: brightness(50%);
 }
 

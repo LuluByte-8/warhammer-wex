@@ -19,7 +19,12 @@
   --fontsize-l: 60px;
   --fontsize-xl: 70px;
 
-  --fixed-s-gap: 10px;
+  --fixed-xs-gap: 10px;
+  --fixed-s-gap: 15px;
+
+  --border-radius-xs: 6px;
+  --border-radius-s: 10px;
+  --border-radius-m: 20px;
 
   --spacing-unit: 1rem;
   --spacing-unit-xxs: calc(0.33 * var(--spacing-unit));
