@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-backend": "docker-compose up",
+    "start-frontend": "cd web && npm run dev",
+    "start-storybook": "cd web && npm run storybook",
+    "db-migrate": "cd db && PGPASSWORD=password sqitch deploy db:pg://postgres@localhost:5432/postgres",
+    "db-clean": "cd db && PGPASSWORD=password psql -h localhost -U postgres -d postgres -c \"DROP SCHEMA public CASCADE; DROP SCHEMA warhammer CASCADE; DROP SCHEMA sqitch CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;\""
   },
   "repository": {
     "type": "git",

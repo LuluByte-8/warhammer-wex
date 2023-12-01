@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=warhammerworkexperience
+
+20231124-initial-db 2023-11-24T16:07:04Z Dan Dando <dan@rocketmakers.com> # Add initial schema
