@@ -15,9 +15,11 @@ Run `npm install` to install all dependencies.
 Run `cd web && npm install` to install all dependencies for the web app.
 
 Install the following via brew:
+
 ```
 brew install postgresql
-brew install sqitch
+brew tap sqitchers/sqitch
+brew install sqitch --with-postgres-support --with-sqlite-support
 ```
 
 ### Running the app
