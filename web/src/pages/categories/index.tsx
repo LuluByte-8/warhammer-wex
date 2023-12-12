@@ -3,7 +3,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
-import { getCategories, ICategory } from "@/api/mock/category";
+import prisma from "@/lib/prisma";
 import { CategoryLink } from "@/components/categorylink";
 import styles from "./category.module.css";
 import hero from "@/assets/CategoryHero.png";
@@ -13,7 +13,7 @@ const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Category: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ categories }) => {
+> = ({ data }) => {
   return (
     <main>
       <NavBar />
@@ -32,12 +32,12 @@ const Category: React.FC<
       </div>
 
       <div className={`${styles.linksContainers}`}>
-        {categories.map((category) => {
+        {data.map((data: any) => {
           return (
             <CategoryLink
-              name={category.name}
-              categoryId={category.categoryId}
-              imageURL={category.bannerUrl}
+              name={data.name}
+              categoryId={data.id}
+              imageURL={data.banner_url}
             />
           );
         })}
@@ -50,17 +50,9 @@ const Category: React.FC<
 
 export default Category;
 
-interface ICategoryListPageProps {
-  categories: ICategory[];
-}
+export const getServerSideProps = async () => {
+  const data = await prisma.categories.findMany();
+  console.log(data);
 
-export const getServerSideProps: GetServerSideProps<
-  ICategoryListPageProps
-> = async () => {
-  const categories = getCategories();
-  return {
-    props: {
-      categories: categories,
-    },
-  };
+  return { props: { data } };
 };

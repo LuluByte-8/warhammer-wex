@@ -1,34 +1,25 @@
 import styles from "./unit.module.css";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
 import { StatBlock } from "@/components/statblock";
-import { IUnit, getUnitById } from "@/api/mock/units";
+import prisma from "@/lib/prisma";
 
 const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({
-  name,
-  movement,
-  toughness,
-  savingThrow,
-  wounds,
-  leadership,
-  objectiveControl,
-  invulnSave,
-}) => {
+> = ({ unit }) => {
   return (
     <main className={`${styles.main}`}>
       <NavBar />
 
       <StatBlock
-        name={name}
-        movement={movement}
-        toughness={toughness}
-        savingThrow={savingThrow}
-        wounds={wounds}
-        leadership={leadership}
-        objectiveControl={objectiveControl}
-        invulnSave={invulnSave}
+        name={unit.name}
+        movement={unit.movement}
+        toughness={unit.toughness}
+        savingThrow={unit.saving_throw}
+        wounds={unit.wounds}
+        leadership={unit.leadership}
+        objectiveControl={unit.objective_control}
+        invulnSave={unit.invuln_save}
       />
     </main>
   );
@@ -36,17 +27,18 @@ const UnitPage: React.FC<
 
 export default UnitPage;
 
-export const getServerSideProps: GetServerSideProps<IUnit> = async (
-  context
-) => {
-  console.log(context.query.uid);
+export const getServerSideProps = async (context: any) => {
   if (typeof context.query.uid !== "string") {
     return {
       notFound: true,
     };
   }
-
-  const unit = getUnitById(context.query.uid);
+  const uid = +context.query.uid;
+  const unit = await prisma.units.findUnique({
+    where: {
+      id: uid,
+    },
+  });
 
   if (!unit) {
     return {
@@ -56,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<IUnit> = async (
 
   return {
     props: {
-      ...unit,
+      unit,
     },
   };
 };

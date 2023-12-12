@@ -1,7 +1,5 @@
 import React from "react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import Link from "next/link";
-import { getArmyByCategoryId, IArmy } from "@/api/mock/army";
+import { InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import styles from "./army.module.css";
@@ -9,12 +7,13 @@ import hero from "@/assets/ArmyHero.png";
 import Image from "next/image";
 import { Open_Sans } from "next/font/google";
 import { ArmyBanner } from "@/components/armybanner";
+import prisma from "@/lib/prisma";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ armies }) => {
+> = ({ data }) => {
   return (
     <main>
       <NavBar />
@@ -33,14 +32,14 @@ const Army: React.FC<
         </div>
       </div>
 
-      {armies.map((army) => {
+      {data.map((army) => {
         return (
           <ArmyBanner
             name={army.name}
             description={army.description}
-            armyId={army.armyId}
-            imageURL={army.bannerUrl}
-            categoryId={army.categoryId}
+            armyId={army.id}
+            imageURL={army.banner_url}
+            categoryId={army.category_id}
           />
         );
       })}
@@ -51,22 +50,20 @@ const Army: React.FC<
 
 export default Army;
 
-interface IArmyListPageProps {
-  armies: IArmy[];
-}
-
-export const getServerSideProps: GetServerSideProps<
-  IArmyListPageProps
-> = async (context) => {
+export const getServerSideProps = async (context: any) => {
   if (typeof context.query.cid !== "string") {
     return {
       notFound: true,
     };
   }
-  const cid = context.query.cid;
-  const armies = getArmyByCategoryId(cid);
+  const cid = +context.query.cid;
+  const data = await prisma.armies.findMany({
+    where: {
+      category_id: cid,
+    },
+  });
 
-  if (!armies) {
+  if (!data) {
     return {
       notFound: true,
     };
@@ -74,7 +71,7 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      armies: armies,
+      data,
     },
   };
 };

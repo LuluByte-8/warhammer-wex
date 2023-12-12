@@ -7,9 +7,9 @@ const Opensans = Open_Sans({ subsets: ["latin"] });
 interface IArmyBanner {
   name: string;
   description: string;
-  armyId: string;
-  imageURL: string;
-  categoryId: string;
+  armyId: number;
+  imageURL: string | null;
+  categoryId: number | null;
 }
 
 export const ArmyBanner: React.FC<IArmyBanner> = ({

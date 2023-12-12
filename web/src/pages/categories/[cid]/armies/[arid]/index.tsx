@@ -1,8 +1,6 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-
-import { getArmyById,IArmy } from "@/api/mock/army";
-import { getUnitsByArmyId,IUnit } from "@/api/mock/units";
+import prisma from "@/lib/prisma";
 import { NavBar } from "@/components/navbar";
 
 import styles from "./unitlist.module.css";
@@ -18,7 +16,7 @@ const ArmyPage: React.FC<
         return (
           <div key={unit.id}>
             <Link
-              href={`${unit.armyId}/units/${unit.id}`}
+              href={`${unit.army_id}/units/${unit.id}`}
               key={unit.name}
               className={`${styles.id}`}
             >
@@ -37,7 +35,7 @@ const ArmyPage: React.FC<
 
               <div>
                 <p>Sv</p>
-                <p>{unit.savingThrow}+</p>
+                <p>{unit.saving_throw}+</p>
               </div>
 
               <div>
@@ -52,7 +50,7 @@ const ArmyPage: React.FC<
 
               <div>
                 <p>OC</p>
-                <p>{unit.objectiveControl}</p>
+                <p>{unit.objective_control}</p>
               </div>
             </div>
           </div>
@@ -64,21 +62,18 @@ const ArmyPage: React.FC<
 
 export default ArmyPage;
 
-interface IArmyPageProps {
-  units: IUnit[];
-  army: IArmy;
-}
-
-export const getServerSideProps: GetServerSideProps<IArmyPageProps> = async (
-  context
-) => {
+export const getServerSideProps = async (context: any) => {
   if (typeof context.query.arid !== "string") {
     return {
       notFound: true,
     };
   }
-  const arid = context.query.arid;
-  const army = getArmyById(arid);
+  const arid = +context.query.arid;
+  const army = await prisma.armies.findUnique({
+    where: {
+      id: arid,
+    },
+  });
 
   if (!army) {
     return {
@@ -86,7 +81,11 @@ export const getServerSideProps: GetServerSideProps<IArmyPageProps> = async (
     };
   }
 
-  const units = getUnitsByArmyId(arid);
+  const units = await prisma.units.findMany({
+    where: {
+      army_id: arid,
+    },
+  });
   if (units.length === 0) {
     return {
       notFound: true,
