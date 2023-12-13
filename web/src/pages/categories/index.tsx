@@ -7,6 +7,7 @@ import prisma from "@/lib/prisma";
 import { CategoryLink } from "@/components/categorylink";
 import styles from "./category.module.css";
 import hero from "@/assets/CategoryHero.png";
+import { HeroImage } from "@/components/heroimage";
 import { Open_Sans } from "next/font/google";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
@@ -18,18 +19,12 @@ const Category: React.FC<
     <main>
       <NavBar />
 
-      <div className={`${styles.main} ${Opensans.className}`}>
-        <div className={styles.heroContainer}>
-          <Image className={styles.heroImage} src={hero} alt="hero" />
-        </div>
-        <div className={`${styles.content}`}>
-          <h1>Test Heading</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur. Orci ut arcu magnis pharetra
-            consequat feugiat interdum. Adipiscing euismod id justo quam.
-          </p>
-        </div>
-      </div>
+      <HeroImage
+        header="Test Heading"
+        text="Lorem ipsum dolor sit amet consectetur. Orci ut arcu magnis pharetra
+            consequat feugiat interdum. Adipiscing euismod id justo quam."
+        imageURL={hero}
+      />
 
       <div className={`${styles.linksContainers}`}>
         {data.map((data: any) => {

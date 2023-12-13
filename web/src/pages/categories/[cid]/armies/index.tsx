@@ -2,6 +2,7 @@ import React from "react";
 import { InferGetServerSidePropsType } from "next";
 import { NavBar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { HeroImage } from "@/components/heroimage";
 import styles from "./army.module.css";
 import hero from "@/assets/ArmyHero.png";
 import Image from "next/image";
@@ -18,19 +19,12 @@ const Army: React.FC<
     <main>
       <NavBar />
 
-      <div className={`${styles.main} ${Opensans.className}`}>
-        <div className={styles.heroContainer}>
-          <Image className={styles.heroImage} src={hero} alt="hero" />
-        </div>
-
-        <div className={`${styles.content}`}>
-          <h1>Test Heading</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur. Orci ut arcu magnis pharetra
-            consequat feugiat interdum. Adipiscing euismod id justo quam.
-          </p>
-        </div>
-      </div>
+      <HeroImage
+        header="Test Heading"
+        text="Lorem ipsum dolor sit amet consectetur. Orci ut arcu magnis pharetra
+            consequat feugiat interdum. Adipiscing euismod id justo quam."
+        imageURL={hero}
+      />
 
       {data.map((army) => {
         return (
