@@ -1,5 +1,6 @@
 import styles from "@/components/armybanner.module.css";
 import { Open_Sans } from "next/font/google";
+import { StaticImageData } from "next/image";
 import Link from "next/link";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
@@ -8,7 +9,7 @@ interface IArmyBanner {
   name: string;
   description: string;
   armyId: number;
-  imageURL: string | null;
+  imageURL: string | StaticImageData;
   categoryId: number | null;
 }
 

@@ -37,3 +37,9 @@ model units {
   invuln_save       Int     @default(0)
   armies            armies? @relation(fields: [army_id], references: [id], onUpdate: NoAction, map: "fk_unitid")
 }
+
+model userprofile {
+  userid     Int    @id @default(autoincrement())
+  firebaseid String @unique @db.VarChar
+  username   String @unique
+}
