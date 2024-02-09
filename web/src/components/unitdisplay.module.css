@@ -1,0 +1,41 @@
+.container {
+  max-width: 250px;
+  min-width: 250px;
+  max-height: 400px;
+  background-color: var(--lightgrey);
+  display: flex;
+  flex-direction: column;
+}
+
+.imagecontainer {
+  min-width: 200px;
+  min-height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+.bannercontainer {
+  background-color: var(--whiteshade2);
+  max-width: 350px;
+  min-height: 100px;
+  padding: var(--spacing-unit-xxs);
+  display: flex;
+  flex-direction: column;
+}
+
+.bannercontainer h1 {
+  font-size: var(--fontsize-xs);
+}
+
+.unitbutton {
+  padding: var(--spacing-unit-xxs) var(--spacing-unit-s);
+  border-radius: var(--border-radius-xs);
+  background-color: var(--neongreen);
+  border: 1px solid var(--black);
+  min-width: 100%;
+  font-size: 15px;
+}
+
+.unitbutton:focus {
+  outline: none;
+}

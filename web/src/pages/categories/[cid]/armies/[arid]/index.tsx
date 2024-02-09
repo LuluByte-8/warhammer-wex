@@ -1,11 +1,15 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-
-import { getArmyById,IArmy } from "@/api/mock/army";
-import { getUnitsByArmyId,IUnit } from "@/api/mock/units";
+import prisma from "@/lib/prisma";
 import { NavBar } from "@/components/navbar";
-
+import { Footer } from "@/components/footer";
+import { HeroImage } from "@/components/heroimage";
+import hero from "@/assets/UnitsHeroImage.png";
 import styles from "./unitlist.module.css";
+import { Open_Sans } from "next/font/google";
+import { UnitDisplay } from "@/components/unitdisplay";
+
+const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -13,72 +17,56 @@ const ArmyPage: React.FC<
   return (
     <main>
       <NavBar />
-      <h1>{army.name}</h1>
-      {units.map((unit) => {
-        return (
-          <div key={unit.id}>
-            <Link
-              href={`${unit.armyId}/units/${unit.id}`}
-              key={unit.name}
-              className={`${styles.id}`}
-            >
-              <div>{unit.name}</div>
-            </Link>
-            <div className={`${styles.statscontainer}`}>
-              <div>
-                <p>M</p>
-                <p>{unit.movement}</p>
-              </div>
 
-              <div>
-                <p>T</p>
-                <p>{unit.toughness}</p>
-              </div>
+      <HeroImage
+        header="Test Heading"
+        text="Lorem ipsum dolor sit amet consectetur. Orci ut arcu magnis pharetra
+            consequat feugiat interdum. Adipiscing euismod id justo quam."
+        imageURL={hero}
+      />
 
-              <div>
-                <p>Sv</p>
-                <p>{unit.savingThrow}+</p>
-              </div>
+      <div className={`${styles.contentwrapper} ${Opensans.className}`}>
+        <div className={`${styles.leftsection}`}>
+          <h1>{army.name}</h1>
+          <p>*Option selection/filtering goes here*</p>
+        </div>
 
-              <div>
-                <p>W</p>
-                <p>{unit.wounds}</p>
+        <div className={`${styles.rightsection}`}>
+          {/* <h1>{army.name}</h1> */}
+          {units.map((unit) => {
+            return (
+              <div key={unit.id}>
+                <UnitDisplay
+                  unitId={unit.id}
+                  name={unit.name}
+                  imageURL="https://placehold.co/200x300"
+                  armyId={army.id}
+                />
               </div>
+            );
+          })}
+        </div>
+      </div>
 
-              <div>
-                <p>L</p>
-                <p>{unit.leadership}+</p>
-              </div>
-
-              <div>
-                <p>OC</p>
-                <p>{unit.objectiveControl}</p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      <Footer />
     </main>
   );
 };
 
 export default ArmyPage;
 
-interface IArmyPageProps {
-  units: IUnit[];
-  army: IArmy;
-}
-
-export const getServerSideProps: GetServerSideProps<IArmyPageProps> = async (
-  context
-) => {
+export const getServerSideProps = async (context: any) => {
   if (typeof context.query.arid !== "string") {
     return {
       notFound: true,
     };
   }
-  const arid = context.query.arid;
-  const army = getArmyById(arid);
+  const arid = +context.query.arid;
+  const army = await prisma.armies.findUnique({
+    where: {
+      id: arid,
+    },
+  });
 
   if (!army) {
     return {
@@ -86,7 +74,11 @@ export const getServerSideProps: GetServerSideProps<IArmyPageProps> = async (
     };
   }
 
-  const units = getUnitsByArmyId(arid);
+  const units = await prisma.units.findMany({
+    where: {
+      army_id: arid,
+    },
+  });
   if (units.length === 0) {
     return {
       notFound: true,

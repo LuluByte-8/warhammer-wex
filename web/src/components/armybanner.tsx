@@ -1,5 +1,6 @@
 import styles from "@/components/armybanner.module.css";
 import { Open_Sans } from "next/font/google";
+import { StaticImageData } from "next/image";
 import Link from "next/link";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
@@ -7,9 +8,9 @@ const Opensans = Open_Sans({ subsets: ["latin"] });
 interface IArmyBanner {
   name: string;
   description: string;
-  armyId: string;
-  imageURL: string;
-  categoryId: string;
+  armyId: number;
+  imageURL: string | StaticImageData;
+  categoryId: number | null;
 }
 
 export const ArmyBanner: React.FC<IArmyBanner> = ({

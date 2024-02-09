@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model armies {
+  id          Int         @id @default(autoincrement())
+  category_id Int?
+  name        String      @unique
+  description String      @db.VarChar(255)
+  banner_url  String?
+  categories  categories? @relation(fields: [category_id], references: [id], onUpdate: NoAction, map: "fk_categoryid")
+  units       units[]
+}
+
+model categories {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  banner_url String?
+  armies     armies[]
+}
+
+model units {
+  id                Int     @id @default(autoincrement())
+  army_id           Int?
+  name              String  @unique
+  movement          Int
+  toughness         Int
+  saving_throw      Int
+  wounds            Int
+  leadership        Int
+  objective_control Int
+  invuln_save       Int     @default(0)
+  armies            armies? @relation(fields: [army_id], references: [id], onUpdate: NoAction, map: "fk_unitid")
+}
+
+model userprofile {
+  userid     Int    @id @default(autoincrement())
+  firebaseid String @unique @db.VarChar
+  username   String @unique
+}
