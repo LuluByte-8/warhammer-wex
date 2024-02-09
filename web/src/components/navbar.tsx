@@ -8,7 +8,11 @@ import styles from "./navbar.module.css";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
 
-export const NavBar: React.FC = () => {
+interface NavBarProps {
+  loggedin?: boolean;
+}
+
+export const NavBar = ({ loggedin }: NavBarProps) => {
   return (
     <div className={`${styles.navbar} ${Opensans.className}`}>
       <div className={`${styles.logoContainer}`}>
@@ -27,14 +31,32 @@ export const NavBar: React.FC = () => {
         </Link>
       </div>
 
-      <div className={`${styles.profileIconContainer}`}>
-        <Link className={`${styles.linkClass}`} href="/profile">
-          <Image
-            className={`${styles.profileIcon}`}
-            src={ProfileIcon}
-            alt="AccountManagement"
-          />
-        </Link>
+      <div>
+        {loggedin ? (
+          <div className={`${styles.profileIconContainer}`}>
+            <Link className={`${styles.linkClass}`} href="/profile">
+              <Image
+                className={`${styles.profileIcon}`}
+                src={ProfileIcon}
+                alt="AccountManagement"
+              />
+            </Link>
+          </div>
+        ) : (
+          <div className={`${styles.buttonwrapper}`}>
+            <Link href="/auth/login">
+              <button className={`${styles.formbutton} ${Opensans.className}`}>
+                <b>Log In</b>
+              </button>
+            </Link>
+
+            <Link href="/auth/signup">
+              <button className={`${styles.formbutton} ${Opensans.className}`}>
+                <b>Register</b>
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

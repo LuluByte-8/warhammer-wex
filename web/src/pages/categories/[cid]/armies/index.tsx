@@ -1,5 +1,5 @@
 import React from "react";
-import { InferGetServerSidePropsType } from "next";
+import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 import { NavBar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroImage } from "@/components/heroimage";
@@ -9,15 +9,16 @@ import Image from "next/image";
 import { Open_Sans } from "next/font/google";
 import { ArmyBanner } from "@/components/armybanner";
 import prisma from "@/lib/prisma";
+import { LoginCheck } from "@/lib/logincheck";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ data }) => {
+> = ({ data, loginauth }) => {
   return (
     <main>
-      <NavBar />
+      <NavBar loggedin={loginauth.authenticated} />
 
       <HeroImage
         header="Test Heading"
@@ -44,7 +45,9 @@ const Army: React.FC<
 
 export default Army;
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   if (typeof context.query.cid !== "string") {
     return {
       notFound: true,
@@ -57,6 +60,8 @@ export const getServerSideProps = async (context: any) => {
     },
   });
 
+  const loginauth = await LoginCheck(context);
+
   if (!data) {
     return {
       notFound: true,
@@ -64,8 +69,6 @@ export const getServerSideProps = async (context: any) => {
   }
 
   return {
-    props: {
-      data,
-    },
+    props: { data, loginauth },
   };
 };

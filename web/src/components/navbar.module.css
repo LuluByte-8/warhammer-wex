@@ -41,3 +41,21 @@
   float: right;
   gap: var(--spacing-unit-s);
 }
+
+.buttonwrapper {
+  display: flex;
+  justify-content: right;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+.formbutton {
+  border-radius: var(--border-radius-xs);
+  background-color: var(--neongreen);
+  border: 1px solid var(--black);
+  font-size: 15px;
+}
+
+.formbutton:focus {
+  outline: none;
+}

@@ -1,6 +1,6 @@
 import React from "react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import Image from "next/image";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { LoginCheck } from "@/lib/logincheck";
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
 import prisma from "@/lib/prisma";
@@ -14,10 +14,10 @@ const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Category: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ data }) => {
+> = ({ data, loginauth }) => {
   return (
     <main>
-      <NavBar />
+      <NavBar loggedin={loginauth.authenticated} />
 
       <HeroImage
         header="Test Heading"
@@ -45,9 +45,10 @@ const Category: React.FC<
 
 export default Category;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const data = await prisma.categories.findMany();
+  const loginauth = await LoginCheck(ctx);
   console.log(data);
 
-  return { props: { data } };
+  return { props: { data, loginauth } };
 };

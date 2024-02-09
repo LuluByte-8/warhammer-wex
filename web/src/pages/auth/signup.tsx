@@ -1,8 +1,14 @@
 import Head from "next/head";
-import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import { firebase } from "../../lib/firebaseClient";
+import hero from "../../assets/loginhero.png";
+import styles from "./signup.module.css";
+import { Footer } from "@/components/footer";
+import { Open_Sans } from "next/font/google";
+
+const Opensans = Open_Sans({ subsets: ["latin"] });
 
 export default function SignUp() {
   const [username, setUserName] = React.useState<string>("");
@@ -38,11 +44,18 @@ export default function SignUp() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <form onSubmit={(e) => e.preventDefault()}>
+      <main className={`${styles.main} ${Opensans.className}`}>
+        <div className={styles.heroContainer}>
+          <Image className={styles.heroImage} src={hero} alt="hero" />
+        </div>
+        <form onSubmit={(e) => e.preventDefault()} className={styles.content}>
+          <h1 className={styles.contenttext}>Sign up: </h1>
           <div>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" className={styles.contenttext}>
+              Username:
+            </label>
             <input
+              className={styles.contenttext}
               id="username"
               type={"username"}
               placeholder={"Username"}
@@ -51,8 +64,11 @@ export default function SignUp() {
             />
           </div>
           <div>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className={styles.contenttext}>
+              Email:
+            </label>
             <input
+              className={styles.contenttext}
               id="email"
               type={"email"}
               placeholder={"Email"}
@@ -61,8 +77,11 @@ export default function SignUp() {
             />
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className={styles.contenttext}>
+              Password:
+            </label>
             <input
+              className={styles.contenttext}
               id="password"
               type={"password"}
               placeholder={"Password"}
@@ -71,6 +90,7 @@ export default function SignUp() {
             />
           </div>
           <button
+            className={styles.submitbutton}
             type={"submit"}
             disabled={!email?.length || !password?.length || !username?.length}
             onClick={trySignUp}
@@ -78,6 +98,8 @@ export default function SignUp() {
             Sign Up
           </button>
         </form>
+
+        <Footer />
       </main>
     </>
   );

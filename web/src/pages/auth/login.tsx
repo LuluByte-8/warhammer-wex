@@ -1,10 +1,15 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Head from "next/head";
-import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-
+import hero from "../../assets/loginhero.png";
+import styles from "./login.module.css";
 import { firebase } from "../../lib/firebaseClient";
+import { Footer } from "@/components/footer";
+import { Open_Sans } from "next/font/google";
+
+const Opensans = Open_Sans({ subsets: ["latin"] });
 
 export default function Login() {
   const [userName, setUserName] = React.useState<string>("");
@@ -36,11 +41,20 @@ export default function Login() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <form onSubmit={(e) => e.preventDefault()}>
+      <main className={`${styles.main} ${Opensans.className}`}>
+        <div className={styles.heroContainer}>
+          <Image className={styles.heroImage} src={hero} alt="hero" />
+        </div>
+
+        <form onSubmit={(e) => e.preventDefault()} className={styles.content}>
+          <h1 className={styles.contenttext}>Login: </h1>
+
           <div>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className={styles.contenttext}>
+              Email:{" "}
+            </label>
             <input
+              className={styles.contenttext}
               id="email"
               type={"email"}
               placeholder={"Email"}
@@ -49,8 +63,11 @@ export default function Login() {
             />
           </div>
           <div>
-            <label htmlFor="email">Password</label>
+            <label htmlFor="email" className={styles.contenttext}>
+              Password:{" "}
+            </label>
             <input
+              className={styles.contenttext}
               id="password"
               type={"password"}
               placeholder={"Password"}
@@ -59,6 +76,7 @@ export default function Login() {
             />
           </div>
           <button
+            className={styles.submitbutton}
             type={"submit"}
             disabled={!userName?.length || !password?.length}
             onClick={tryLogIn}
@@ -66,6 +84,8 @@ export default function Login() {
             Log In
           </button>
         </form>
+
+        <Footer />
       </main>
     </>
   );

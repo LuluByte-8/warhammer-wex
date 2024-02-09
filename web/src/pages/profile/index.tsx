@@ -57,7 +57,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     // either way: redirect to the login page
     return {
       redirect: {
-        destination: "/auth/login",
+        destination: "/",
         permanent: false,
       },
     };

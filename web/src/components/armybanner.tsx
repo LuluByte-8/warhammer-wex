@@ -9,7 +9,7 @@ interface IArmyBanner {
   name: string;
   description: string;
   armyId: number;
-  imageURL: string | StaticImageData;
+  imageURL: any;
   categoryId: number | null;
 }
 
