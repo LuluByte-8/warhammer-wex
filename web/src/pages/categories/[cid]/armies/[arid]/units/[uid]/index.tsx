@@ -3,14 +3,14 @@ import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 import { NavBar } from "@/components/navbar";
 import { StatBlock } from "@/components/statblock";
 import prisma from "@/lib/prisma";
-import { LoginCheck } from "@/lib/logincheck";
+import { LoginCheck } from "@/lib/loginChecker";
 
 const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ unit, loginauth }) => {
+> = ({ unit }) => {
   return (
     <main className={`${styles.main}`}>
-      <NavBar loggedin={loginauth.authenticated} />
+      <NavBar />
 
       <StatBlock
         name={unit.name}
@@ -43,8 +43,6 @@ export const getServerSideProps = async (
     },
   });
 
-  const loginauth = await LoginCheck(context);
-
   if (!unit) {
     return {
       notFound: true,
@@ -52,6 +50,6 @@ export const getServerSideProps = async (
   }
 
   return {
-    props: { unit, loginauth },
+    props: { unit },
   };
 };

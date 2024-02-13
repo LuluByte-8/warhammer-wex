@@ -9,16 +9,16 @@ import Image from "next/image";
 import { Open_Sans } from "next/font/google";
 import { ArmyBanner } from "@/components/armybanner";
 import prisma from "@/lib/prisma";
-import { LoginCheck } from "@/lib/logincheck";
+import { LoginCheck } from "@/lib/loginChecker";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ data, loginauth }) => {
+> = ({ data }) => {
   return (
     <main>
-      <NavBar loggedin={loginauth.authenticated} />
+      <NavBar />
 
       <HeroImage
         header="Test Heading"
@@ -28,12 +28,15 @@ const Army: React.FC<
       />
 
       {data.map((army) => {
+        if (!army.category_id) {
+          return null;
+        }
         return (
           <ArmyBanner
             name={army.name}
             description={army.description}
             armyId={army.id}
-            imageURL={army.banner_url}
+            imageURL={army.banner_url ?? "https://placehold.co/600x400"}
             categoryId={army.category_id}
           />
         );
@@ -60,8 +63,6 @@ export const getServerSideProps = async (
     },
   });
 
-  const loginauth = await LoginCheck(context);
-
   if (!data) {
     return {
       notFound: true,
@@ -69,6 +70,6 @@ export const getServerSideProps = async (
   }
 
   return {
-    props: { data, loginauth },
+    props: { data },
   };
 };

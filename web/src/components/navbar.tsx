@@ -5,6 +5,7 @@ import Logo from "@/assets/white-logo.png";
 import ProfileIcon from "@/assets/UserCircle.png";
 import Image from "next/image";
 import styles from "./navbar.module.css";
+import { useAuth } from "@/auth/authContext";
 
 const Opensans = Open_Sans({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ interface NavBarProps {
 }
 
 export const NavBar = ({ loggedin }: NavBarProps) => {
+  const { user } = useAuth();
   return (
     <div className={`${styles.navbar} ${Opensans.className}`}>
       <div className={`${styles.logoContainer}`}>
@@ -32,7 +34,7 @@ export const NavBar = ({ loggedin }: NavBarProps) => {
       </div>
 
       <div>
-        {loggedin ? (
+        {user ? (
           <div className={`${styles.profileIconContainer}`}>
             <Link className={`${styles.linkClass}`} href="/profile">
               <Image
@@ -43,15 +45,15 @@ export const NavBar = ({ loggedin }: NavBarProps) => {
             </Link>
           </div>
         ) : (
-          <div className={`${styles.buttonwrapper}`}>
+          <div className={`${styles.buttonWrapper}`}>
             <Link href="/auth/login">
-              <button className={`${styles.formbutton} ${Opensans.className}`}>
+              <button className={`${styles.formButton} ${Opensans.className}`}>
                 <b>Log In</b>
               </button>
             </Link>
 
             <Link href="/auth/signup">
-              <button className={`${styles.formbutton} ${Opensans.className}`}>
+              <button className={`${styles.formButton} ${Opensans.className}`}>
                 <b>Register</b>
               </button>
             </Link>

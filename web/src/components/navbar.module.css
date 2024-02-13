@@ -42,20 +42,23 @@
   gap: var(--spacing-unit-s);
 }
 
-.buttonwrapper {
+.buttonWrapper {
   display: flex;
-  justify-content: right;
-  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  float: right;
+  gap: var(--fixed-xxs-gap);
   margin-top: 10px;
 }
 
-.formbutton {
+.formButton {
   border-radius: var(--border-radius-xs);
   background-color: var(--neongreen);
   border: 1px solid var(--black);
-  font-size: 15px;
+  font-size: var(--fontsize-xs);
 }
 
-.formbutton:focus {
+.formButton:focus {
   outline: none;
 }

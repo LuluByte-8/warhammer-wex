@@ -1,5 +1,5 @@
 import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
-import { LoginCheck } from "@/lib/logincheck";
+import { LoginCheck } from "@/lib/loginChecker";
 import prisma from "@/lib/prisma";
 import { NavBar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -13,10 +13,10 @@ const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ units, army, loginauth }) => {
+> = ({ units, army }) => {
   return (
     <main>
-      <NavBar loggedin={loginauth.authenticated} />
+      <NavBar />
 
       <HeroImage
         header="Test Heading"
@@ -82,14 +82,12 @@ export const getServerSideProps = async (
     },
   });
 
-  const loginauth = await LoginCheck(context);
-
   if (units.length === 0) {
     return {
       notFound: true,
     };
   }
   return {
-    props: { units: units, army: army, loginauth },
+    props: { units: units, army: army },
   };
 };

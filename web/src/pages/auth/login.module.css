@@ -1,60 +1,53 @@
-.main {
+.bodyClass {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url(../../assets/loginhero.png);
+  background-size: cover;
+  padding: 0.1px;
+}
+
+.formDiv {
   background-color: var(--black);
   position: relative;
-
-  min-height: 50vh;
-}
-
-.heroContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.heroImage {
-  width: 100%;
-  min-height: 850px;
-  object-fit: cover;
-  filter: brightness(50%);
-}
-
-.content {
-  position: absolute;
-  top: 200px;
-  left: 200px;
-  right: 0;
-  bottom: 0;
-
+  max-width: 260px;
+  margin: 200px auto 340px;
+  padding: var(--spacing-unit-m);
+  text-align: center;
   border-radius: var(--border-radius-s);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-
-  height: 35%;
-  width: 35%;
-
-  background: var(--black);
-
-  margin-left: 25%;
-  transform: translateX(-12.5%);
 }
 
-.contenttext {
-  max-width: 650px;
+.formDiv h1 {
   color: var(--white);
-  font-size: var(--fontsize-m);
 }
 
-.submitbutton {
-  padding: var(--spacing-unit-xxs) var(--spacing-unit-s);
+.formInput {
+  border-radius: var(--border-radius-xs);
+  border: none;
+  width: 100%;
+  margin: 0 0 var(--fixed-s-gap);
+  padding: var(--fixed-s-gap);
+  box-sizing: border-box;
+}
+
+.submitButton {
+  color: var(--black);
   border-radius: var(--border-radius-xs);
   background-color: var(--neongreen);
   border: 1px solid var(--black);
-  font-size: 25px;
+  font-size: var(--fontsize-xs);
+  width: 80%;
+  margin: 0 0 var(--fixed-s-gap);
 }
 
-.submitbutton:focus {
-  outline: none;
+.linkClass {
+  color: var(--white);
+  padding: var(--spacing-unit-xxs) var(--spacing-unit-xs);
+  text-decoration: none;
+}
+
+.linkClass:active {
+  color: var(--limegreen);
 }

@@ -15,6 +15,8 @@ export default function Login() {
   const [userName, setUserName] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
+  const disabledCheck = !userName?.length || !password?.length;
+
   const router = useRouter();
 
   const tryLogIn = () => {
@@ -36,57 +38,51 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className={styles.bodyClass}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${Opensans.className}`}>
-        <div className={styles.heroContainer}>
-          <Image className={styles.heroImage} src={hero} alt="hero" />
-        </div>
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.content}>
-          <h1 className={styles.contenttext}>Login: </h1>
+      <div className={`${styles.formDiv} ${Opensans.className}`}>
+        <h1>Login:</h1>
 
-          <div>
-            <label htmlFor="email" className={styles.contenttext}>
-              Email:{" "}
-            </label>
-            <input
-              className={styles.contenttext}
-              id="email"
-              type={"email"}
-              placeholder={"Email"}
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className={styles.contenttext}>
-              Password:{" "}
-            </label>
-            <input
-              className={styles.contenttext}
-              id="password"
-              type={"password"}
-              placeholder={"Password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <input
+            className={styles.formInput}
+            id="email"
+            type={"email"}
+            placeholder={"Email"}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+
+          <input
+            className={styles.formInput}
+            id="password"
+            type={"password"}
+            placeholder={"Password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
           <button
-            className={styles.submitbutton}
+            className={styles.submitButton}
             type={"submit"}
-            disabled={!userName?.length || !password?.length}
+            disabled={disabledCheck}
             onClick={tryLogIn}
           >
             Log In
           </button>
         </form>
-
-        <Footer />
-      </main>
-    </>
+        <p className={styles.linkClass}>
+          Dont have an account? <br />
+          <a className={styles.linkClass} href="/auth/signup">
+            Click here to register!
+          </a>
+        </p>
+      </div>
+      <Footer />
+    </div>
   );
 }

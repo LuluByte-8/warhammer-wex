@@ -5,7 +5,7 @@ import { firebaseAdmin } from "@/lib/firebaseAdmin";
 export const LoginCheck = async (ctx: GetServerSidePropsContext) => {
   try {
     const cookies = nookies.get(ctx);
-    console.log(cookies);
+    // console.log(cookies);
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
     const { uid, email } = token;
 

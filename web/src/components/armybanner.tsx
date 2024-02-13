@@ -9,8 +9,8 @@ interface IArmyBanner {
   name: string;
   description: string;
   armyId: number;
-  imageURL: any;
-  categoryId: number | null;
+  imageURL: string | StaticImageData;
+  categoryId: number;
 }
 
 export const ArmyBanner: React.FC<IArmyBanner> = ({

@@ -8,12 +8,12 @@ datasource db {
 }
 
 model armies {
-  id          Int         @id @default(autoincrement())
-  category_id Int?
-  name        String      @unique
-  description String      @db.VarChar(255)
+  id          Int        @id @default(autoincrement())
+  category_id Int
+  name        String     @unique
+  description String     @db.VarChar(255)
   banner_url  String?
-  categories  categories? @relation(fields: [category_id], references: [id], onUpdate: NoAction, map: "fk_categoryid")
+  categories  categories @relation(fields: [category_id], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_categoryid")
   units       units[]
 }
 

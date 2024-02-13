@@ -5,17 +5,12 @@ import { NavBar } from "@/components/navbar";
 import hero from "../assets/hero-homepage.png";
 import styles from "./home.module.css";
 
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
-import { LoginCheck } from "@/lib/logincheck";
-
 const Opensans = Open_Sans({ subsets: ["latin"] });
 
-export default function Home(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+export default function Home() {
   return (
     <main>
-      <NavBar loggedin={props.authenticated} />
+      <NavBar />
 
       <div className={`${styles.main}`}>
         <div className={styles.heroContainer}>
@@ -34,8 +29,3 @@ export default function Home(
     </main>
   );
 }
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const loginauth = await LoginCheck(ctx);
-  return { props: loginauth };
-};
