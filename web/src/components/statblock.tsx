@@ -31,7 +31,7 @@ export const StatBlock: React.FC<IStatBlock> = ({
         <div className={`${styles.statscontainer}`}>
           <div className={`${styles.stattitle}`}>
             <p>M</p>
-            <p className={`${styles.statvalue}`}>{movement}"</p>
+            <p className={`${styles.statvalue}`}>{movement}&quot;</p>
           </div>
 
           <div className={`${styles.stattitle}`}>
@@ -71,7 +71,7 @@ export const StatBlock: React.FC<IStatBlock> = ({
         <div className={`${styles.statscontainer}`}>
           <div className={`${styles.stattitle}`}>
             <p>M</p>
-            <p className={`${styles.statvalue}`}>{movement}"</p>
+            <p className={`${styles.statvalue}`}>{movement}&quot;</p>
           </div>
 
           <div className={`${styles.stattitle}`}>

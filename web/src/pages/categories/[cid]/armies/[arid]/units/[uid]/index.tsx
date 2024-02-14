@@ -1,9 +1,11 @@
-import styles from "./unit.module.css";
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
+import React from "react";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+
 import { NavBar } from "@/components/navbar";
 import { StatBlock } from "@/components/statblock";
 import prisma from "@/lib/prisma";
-import { LoginCheck } from "@/lib/loginChecker";
+
+import styles from "./unit.module.css";
 
 const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -29,7 +31,7 @@ const UnitPage: React.FC<
 export default UnitPage;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   if (typeof context.query.uid !== "string") {
     return {

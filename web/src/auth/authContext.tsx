@@ -1,6 +1,7 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { firebase } from "../lib/firebaseClient";
+import { createContext, useContext, useEffect, useState } from "react";
 import nookies from "nookies";
+
+import { firebase } from "../lib/firebaseClient";
 
 const AuthContext = createContext<{ user: firebase.User | null }>({
   user: null,
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: any) {
         const user = firebase.auth().currentUser;
         if (user) await user.getIdToken(true);
       },
-      10 * 60 * 1000
+      10 * 60 * 1000,
     );
 
     // clean up setInterval

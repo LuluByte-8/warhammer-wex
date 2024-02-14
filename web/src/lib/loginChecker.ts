@@ -1,5 +1,6 @@
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext } from "next";
 import nookies from "nookies";
+
 import { firebaseAdmin } from "@/lib/firebaseAdmin";
 
 export const LoginCheck = async (ctx: GetServerSidePropsContext) => {

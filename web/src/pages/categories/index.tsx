@@ -28,6 +28,7 @@ const Category: React.FC<
         {data.map((data: any) => {
           return (
             <CategoryLink
+              key={data.id}
               name={data.name}
               categoryId={data.id}
               imageURL={data.banner_url}
