@@ -18,23 +18,25 @@
   min-height: 200px;
   justify-content: center;
   align-items: center;
-  background-size: fill;
+  background-size: cover;
   background-position: center;
   text-align: center;
   border-radius: var(--border-radius-m);
+
+  font-family: var(--font-open-sans);
 }
 
-.categorytitle {
+.categoryTitle {
   color: var(--white);
 }
 
-.categorybutton {
+.categoryButton {
   padding: var(--spacing-unit-s) var(--spacing-unit-l);
   border-radius: var(--border-radius-xs);
   background-color: var(--neongreen);
   border: 1px solid var(--black);
 }
 
-.categorybutton:focus {
+.categoryButton:focus {
   outline: none;
 }

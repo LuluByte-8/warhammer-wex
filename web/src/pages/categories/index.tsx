@@ -1,16 +1,14 @@
 import React from "react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { LoginCheck } from "@/lib/loginChecker";
+
+import hero from "@/assets/CategoryHero.png";
+import { CategoryLink } from "@/components/categorylink";
 import { Footer } from "@/components/footer";
+import { HeroImage } from "@/components/heroimage";
 import { NavBar } from "@/components/navbar";
 import prisma from "@/lib/prisma";
-import { CategoryLink } from "@/components/categorylink";
-import styles from "./category.module.css";
-import hero from "@/assets/CategoryHero.png";
-import { HeroImage } from "@/components/heroimage";
-import { Open_Sans } from "next/font/google";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "./category.module.css";
 
 const Category: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>

@@ -1,13 +1,11 @@
-import { Open_Sans } from "next/font/google";
+import firebase from "firebase/compat/app";
+import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
+import nookies from "nookies";
+
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
-import { GetServerSidePropsContext, GetServerSideProps } from "next";
 import { firebaseAdmin } from "@/lib/firebaseAdmin";
-import nookies from "nookies";
-import firebase from "firebase/compat/app";
-import { useRouter } from "next/router";
-
-const Opensans = Open_Sans({ subsets: ["latin"] });
 
 export default function Profile() {
   const router = useRouter();

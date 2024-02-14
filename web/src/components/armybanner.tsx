@@ -1,9 +1,7 @@
-import styles from "@/components/armybanner.module.css";
-import { Open_Sans } from "next/font/google";
 import { StaticImageData } from "next/image";
 import Link from "next/link";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "@/components/armybanner.module.css";
 
 interface IArmyBanner {
   name: string;
@@ -21,7 +19,7 @@ export const ArmyBanner: React.FC<IArmyBanner> = ({
   categoryId,
 }) => {
   return (
-    <div className={`${styles.container} ${Opensans.className}`}>
+    <div className={`${styles.container}`}>
       <div
         className={styles.imageContainer}
         style={{ backgroundImage: `url(${imageURL})` }}
@@ -36,7 +34,7 @@ export const ArmyBanner: React.FC<IArmyBanner> = ({
           key={name}
           className={`${styles.armyLink}`}
         >
-          <button className={`${styles.armybutton} ${Opensans.className}`}>
+          <button className={`${styles.armybutton}`}>
             See all units
           </button>
         </Link>

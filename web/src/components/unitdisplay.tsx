@@ -1,9 +1,8 @@
-import styles from "@/components/unitdisplay.module.css";
-import { Open_Sans } from "next/font/google";
+import React from "react";
+import { StaticImageData } from "next/image";
 import Link from "next/link";
-import Image, { StaticImageData } from "next/image";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "@/components/unitdisplay.module.css";
 
 interface IUnitDisplay {
   unitId: number;
@@ -19,7 +18,7 @@ export const UnitDisplay: React.FC<IUnitDisplay> = ({
   armyId,
 }) => {
   return (
-    <div className={`${styles.container} ${Opensans.className}`}>
+    <div className={`${styles.container}`}>
       <div
         className={`${styles.imagecontainer}`}
         style={{ backgroundImage: `url(${imageURL})` }}
@@ -33,7 +32,7 @@ export const UnitDisplay: React.FC<IUnitDisplay> = ({
           className={`${styles.unitlink}`}
         >
           <div className={`${styles.buttonwrapper}`}>
-            <button className={`${styles.unitbutton} ${Opensans.className}`}>
+            <button className={`${styles.unitbutton}`}>
               <b>See unit details</b>
             </button>
           </div>

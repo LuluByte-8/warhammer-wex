@@ -1,16 +1,15 @@
 import React from "react";
-import { Open_Sans } from "next/font/google";
-import YT from "@/assets/YoutubeLogo.png";
+import Image from "next/image";
+
 import IG from "@/assets/InstagramLogo.png";
 import TW from "@/assets/TwitterLogo.png";
-import Image from "next/image";
-import styles from "./footer.module.css";
+import YT from "@/assets/YoutubeLogo.png";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "./footer.module.css";
 
 export const Footer: React.FC = () => {
   return (
-    <div className={`${styles.footer} ${Opensans.className}`}>
+    <div className={`${styles.footer}`}>
       <div className={`${styles.linkContainer}`}>
         <a className={`${styles.linkClass}`} href="/">
           COOKIE POLICY

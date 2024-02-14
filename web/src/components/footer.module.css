@@ -6,6 +6,8 @@
   width: auto;
   padding: var(--spacing-unit-xxs);
   justify-content: space-between;
+
+  font-family: var(--font-open-sans);
 }
 
 .linkContainer {

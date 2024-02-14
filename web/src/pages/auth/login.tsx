@@ -1,15 +1,14 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
-import hero from "../../assets/loginhero.png";
-import styles from "./login.module.css";
-import { firebase } from "../../lib/firebaseClient";
-import { Footer } from "@/components/footer";
-import { Open_Sans } from "next/font/google";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import { Footer } from "@/components/footer";
+
+import { firebase } from "../../lib/firebaseClient";
+
+import styles from "./login.module.css";
 
 export default function Login() {
   const [userName, setUserName] = React.useState<string>("");
@@ -44,7 +43,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={`${styles.formDiv} ${Opensans.className}`}>
+      <div className={`${styles.formDiv}`}>
         <h1>Login:</h1>
 
         <form onSubmit={(e) => e.preventDefault()}>
@@ -76,10 +75,10 @@ export default function Login() {
           </button>
         </form>
         <p className={styles.linkClass}>
-          Dont have an account? <br />
-          <a className={styles.linkClass} href="/auth/signup">
+          Don&apos;t have an account? <br />
+          <Link className={styles.linkClass} href="/auth/signup">
             Click here to register!
-          </a>
+          </Link>
         </p>
       </div>
       <Footer />

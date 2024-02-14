@@ -30,6 +30,8 @@
 
   margin-left: 25%;
   transform: translateX(-12.5%);
+
+  font-family: var(--font-open-sans);
 }
 
 .content h1 {

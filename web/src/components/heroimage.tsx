@@ -1,9 +1,7 @@
-import styles from "@/components/heroimage.module.css";
-import { Open_Sans } from "next/font/google";
-import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "@/components/heroimage.module.css";
+
 
 interface IHeroImage {
   header: string;
@@ -13,7 +11,7 @@ interface IHeroImage {
 
 export const HeroImage: React.FC<IHeroImage> = ({ header, text, imageURL }) => {
   return (
-    <div className={`${styles.main} ${Opensans.className}`}>
+    <div className={styles.main}>
       <div className={styles.heroContainer}>
         <Image className={styles.heroImage} src={imageURL} alt="hero" />
       </div>

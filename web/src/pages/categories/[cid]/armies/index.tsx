@@ -1,17 +1,12 @@
 import React from "react";
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
-import { NavBar } from "@/components/navbar";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+
+import hero from "@/assets/ArmyHero.png";
+import { ArmyBanner } from "@/components/armybanner";
 import { Footer } from "@/components/footer";
 import { HeroImage } from "@/components/heroimage";
-import styles from "./army.module.css";
-import hero from "@/assets/ArmyHero.png";
-import Image from "next/image";
-import { Open_Sans } from "next/font/google";
-import { ArmyBanner } from "@/components/armybanner";
+import { NavBar } from "@/components/navbar";
 import prisma from "@/lib/prisma";
-import { LoginCheck } from "@/lib/loginChecker";
-
-const Opensans = Open_Sans({ subsets: ["latin"] });
 
 const Army: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -33,6 +28,7 @@ const Army: React.FC<
         }
         return (
           <ArmyBanner
+            key={army.id}
             name={army.name}
             description={army.description}
             armyId={army.id}
@@ -49,7 +45,7 @@ const Army: React.FC<
 export default Army;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   if (typeof context.query.cid !== "string") {
     return {

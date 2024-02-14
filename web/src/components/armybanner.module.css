@@ -5,6 +5,8 @@
   position: relative;
   gap: var(--fixed-s-gap);
   padding: var(--spacing-unit-s);
+
+  font-family: var(--font-open-sans);
 }
 
 .imageContainer {

@@ -1,22 +1,17 @@
 import React from "react";
-import { Open_Sans } from "next/font/google";
-import Link from "next/link";
-import Logo from "@/assets/white-logo.png";
-import ProfileIcon from "@/assets/UserCircle.png";
 import Image from "next/image";
-import styles from "./navbar.module.css";
+import Link from "next/link";
+
+import ProfileIcon from "@/assets/UserCircle.png";
+import Logo from "@/assets/white-logo.png";
 import { useAuth } from "@/auth/authContext";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "./navbar.module.css";
 
-interface NavBarProps {
-  loggedin?: boolean;
-}
-
-export const NavBar = ({ loggedin }: NavBarProps) => {
+export const NavBar = () => {
   const { user } = useAuth();
   return (
-    <div className={`${styles.navbar} ${Opensans.className}`}>
+    <div className={`${styles.navbar}`}>
       <div className={`${styles.logoContainer}`}>
         <Image className={`${styles.logo}`} src={Logo} alt="Project Logo" />
       </div>
@@ -46,16 +41,11 @@ export const NavBar = ({ loggedin }: NavBarProps) => {
           </div>
         ) : (
           <div className={`${styles.buttonWrapper}`}>
-            <Link href="/auth/login">
-              <button className={`${styles.formButton} ${Opensans.className}`}>
-                <b>Log In</b>
-              </button>
+            <Link href="/auth/login" className={styles.formButton}>
+              Log In
             </Link>
-
-            <Link href="/auth/signup">
-              <button className={`${styles.formButton} ${Opensans.className}`}>
-                <b>Register</b>
-              </button>
+            <Link href="/auth/signup" className={styles.formButton}>
+              Register
             </Link>
           </div>
         )}

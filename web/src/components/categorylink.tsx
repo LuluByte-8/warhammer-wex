@@ -1,8 +1,6 @@
-import styles from "@/components/categorylink.module.css";
-import { Open_Sans } from "next/font/google";
 import Link from "next/link";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "@/components/categorylink.module.css";
 
 interface ICategoryLink {
   name: string;
@@ -17,19 +15,19 @@ export const CategoryLink: React.FC<ICategoryLink> = ({
 }) => {
   return (
     <div
-      className={`${styles.linkContainer} ${Opensans.className}`}
+      className={`${styles.linkContainer}`}
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.80) 80%), url(${imageURL})`,
       }}
     >
       <div>
-        <h1 className={`${styles.categorytitle}`}>{name}</h1>
+        <h1 className={`${styles.categorTtitle}`}>{name}</h1>
         <Link
           href={`categories/${categoryId}/armies`}
           key={name}
           className={`${styles.armyLink}`}
         >
-          <button className={`${styles.categorybutton} ${Opensans.className}`}>
+          <button className={`${styles.categoryButton}`}>
             See all armies
           </button>
         </Link>

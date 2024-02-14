@@ -1,15 +1,14 @@
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
-import { LoginCheck } from "@/lib/loginChecker";
-import prisma from "@/lib/prisma";
-import { NavBar } from "@/components/navbar";
+import React from "react";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+
+import hero from "@/assets/UnitsHeroImage.png";
 import { Footer } from "@/components/footer";
 import { HeroImage } from "@/components/heroimage";
-import hero from "@/assets/UnitsHeroImage.png";
-import styles from "./unitlist.module.css";
-import { Open_Sans } from "next/font/google";
+import { NavBar } from "@/components/navbar";
 import { UnitDisplay } from "@/components/unitdisplay";
+import prisma from "@/lib/prisma";
 
-const Opensans = Open_Sans({ subsets: ["latin"] });
+import styles from "./unitlist.module.css";
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -25,13 +24,13 @@ const ArmyPage: React.FC<
         imageURL={hero}
       />
 
-      <div className={`${styles.contentwrapper} ${Opensans.className}`}>
-        <div className={`${styles.leftsection}`}>
+      <div className={`${styles.contentWrapper}`}>
+        <div className={`${styles.leftSection}`}>
           <h1>{army.name}</h1>
           <p>*Option selection/filtering goes here*</p>
         </div>
 
-        <div className={`${styles.rightsection}`}>
+        <div className={`${styles.rightSection}`}>
           {/* <h1>{army.name}</h1> */}
           {units.map((unit) => {
             return (
@@ -56,7 +55,7 @@ const ArmyPage: React.FC<
 export default ArmyPage;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   if (typeof context.query.arid !== "string") {
     return {

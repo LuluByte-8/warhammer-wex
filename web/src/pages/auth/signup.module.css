@@ -17,6 +17,8 @@
   padding: var(--spacing-unit-m);
   text-align: center;
   border-radius: var(--border-radius-s);
+
+  font-family: var(--font-open-sans);
 }
 
 .formDiv h1 {

@@ -6,6 +6,9 @@
   width: auto;
   padding: var(--spacing-unit-xxs);
   justify-content: space-between;
+  align-items: center;
+
+    font-family: var(--font-open-sans);
 }
 
 .logoContainer {
@@ -49,7 +52,7 @@
   flex-shrink: 0;
   float: right;
   gap: var(--fixed-xxs-gap);
-  margin-top: 10px;
+
 }
 
 .formButton {
@@ -57,8 +60,20 @@
   background-color: var(--neongreen);
   border: 1px solid var(--black);
   font-size: var(--fontsize-xs);
+
+  font-weight: bold;
+
+  color: black;
+
+  padding: var(--spacing-unit-xxs) var(--spacing-unit-xs);
+
+  text-decoration: none;
 }
 
 .formButton:focus {
   outline: none;
+}
+
+.formButton:visited {
+  color: black;
 }
