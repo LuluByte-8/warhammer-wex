@@ -1,1 +1,1 @@
-(cd web && next lint)
+(cd web && npm run lint)
