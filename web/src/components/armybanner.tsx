@@ -6,7 +6,7 @@ import styles from "@/components/armybanner.module.css";
 interface IArmyBanner {
   name: string;
   description: string;
-  armyId: number;
+  armyId: string;
   imageURL: string | StaticImageData;
   categoryId: number;
 }

@@ -28,7 +28,10 @@ export const Footer: React.FC = () => {
           <Image className={`${styles.ytIcon}`} src={YT} alt="YouTube" />
         </Link>
 
-        <Link className={`${styles.linkClass}`} href="https://www.instagram.com/">
+        <Link
+          className={`${styles.linkClass}`}
+          href="https://www.instagram.com/"
+        >
           <Image className={`${styles.igIcon}`} src={IG} alt="Istagram" />
         </Link>
 

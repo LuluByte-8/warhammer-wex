@@ -21,15 +21,13 @@ export const CategoryLink: React.FC<ICategoryLink> = ({
       }}
     >
       <div>
-        <h1 className={`${styles.categorTtitle}`}>{name}</h1>
+        <h1 className={`${styles.categoryTitle}`}>{name}</h1>
         <Link
           href={`categories/${categoryId}/armies`}
           key={name}
           className={`${styles.armyLink}`}
         >
-          <button className={`${styles.categoryButton}`}>
-            See all armies
-          </button>
+          <button className={`${styles.categoryButton}`}>See all armies</button>
         </Link>
       </div>
     </div>

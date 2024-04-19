@@ -1,0 +1,54 @@
+.mainClass {
+  margin: var(--fixed-xs-gap) auto;
+  justify-content: center;
+  font-family: var(--font-open-sans);
+  width: 50%;
+}
+
+.headerDiv {
+  border-bottom: 2px solid var(--black);
+  background-color: var(--black);
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainStatsContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--grey);
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.statBlockContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--lightgrey);
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.mainStatsLeft {
+  display: flex;
+  gap: 30px;
+  flex-direction: row;
+}
+
+.statBlockLeft {
+  display: flex;
+  gap: 30px;
+  flex-direction: row;
+}
+
+.mainStatsRight {
+  display: flex;
+  gap: 25px;
+  flex-direction: row;
+}
+
+.statBlockRight {
+  display: flex;
+  gap: 25px;
+  flex-direction: row;
+}

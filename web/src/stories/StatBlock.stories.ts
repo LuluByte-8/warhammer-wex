@@ -19,12 +19,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     name: "Test Name",
-    movement: 0,
-    toughness: 0,
-    savingThrow: 0,
-    wounds: 0,
-    leadership: 0,
-    objectiveControl: 0,
-    invulnSave: 0,
+    movement: "",
+    weaponSkill: "",
+    ballisticSkill: "",
+    strength: "",
+    toughness: "",
+    wounds: "",
+    attacks: "",
+    leadership: "",
+    save: "",
   },
 };

@@ -33,16 +33,18 @@ const ArmyPage: React.FC<
         <div className={`${styles.rightSection}`}>
           {/* <h1>{army.name}</h1> */}
           {units.map((unit) => {
-            return (
-              <div key={unit.id}>
-                <UnitDisplay
-                  unitId={unit.id}
-                  name={unit.name}
-                  imageURL="https://placehold.co/200x300"
-                  armyId={army.id}
-                />
-              </div>
-            );
+            if (unit.line === 1) {
+              return (
+                <div key={unit.unit_id}>
+                  <UnitDisplay
+                    unitId={unit.unit_id}
+                    name={unit.name}
+                    imageURL="https://placehold.co/200x300"
+                    armyId={army.id}
+                  />
+                </div>
+              );
+            }
           })}
         </div>
       </div>
@@ -55,14 +57,14 @@ const ArmyPage: React.FC<
 export default ArmyPage;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ) => {
   if (typeof context.query.arid !== "string") {
     return {
       notFound: true,
     };
   }
-  const arid = +context.query.arid;
+  const arid = context.query.arid;
   const army = await prisma.armies.findUnique({
     where: {
       id: arid,
@@ -77,7 +79,7 @@ export const getServerSideProps = async (
 
   const units = await prisma.units.findMany({
     where: {
-      army_id: arid,
+      faction_id: arid,
     },
   });
 
@@ -86,6 +88,7 @@ export const getServerSideProps = async (
       notFound: true,
     };
   }
+
   return {
     props: { units: units, army: army },
   };

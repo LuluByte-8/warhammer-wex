@@ -8,7 +8,7 @@ interface IUnitDisplay {
   unitId: number;
   imageURL: string | StaticImageData;
   name: string;
-  armyId: number;
+  armyId: string;
 }
 
 export const UnitDisplay: React.FC<IUnitDisplay> = ({

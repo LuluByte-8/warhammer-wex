@@ -3,7 +3,7 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS warhammer.armies (
-    id SERIAL PRIMARY KEY,
+    id TEXT PRIMARY KEY UNIQUE,
     category_id INT NOT NULL,
     name TEXT NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,

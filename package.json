@@ -9,7 +9,8 @@
     "start-storybook": "(cd web && npm run storybook)",
     "db-migrate": "(cd db && PGPASSWORD=password sqitch deploy db:pg://postgres@localhost:5432/postgres)",
     "db-clean": "cd db && PGPASSWORD=password psql -h localhost -U postgres -d postgres -c \"DROP SCHEMA public CASCADE; DROP SCHEMA warhammer CASCADE; DROP SCHEMA sqitch CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "update-prisma-schema": "(cd web/prisma && npx prisma db pull && npx prisma generate) ; (cd scripts/wahapedia-import && npx prisma db pull && npx prisma generate)"
   },
   "repository": {
     "type": "git",

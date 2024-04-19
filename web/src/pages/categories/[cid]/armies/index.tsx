@@ -45,7 +45,7 @@ const Army: React.FC<
 export default Army;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ) => {
   if (typeof context.query.cid !== "string") {
     return {

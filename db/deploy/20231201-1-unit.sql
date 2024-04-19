@@ -3,20 +3,26 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS warhammer.units (
-    id SERIAL PRIMARY KEY,
-    army_id INT,
-    name TEXT NOT NULL UNIQUE,
-    movement INT NOT NULL,
-    toughness INT NOT NULL,
-    saving_throw INT NOT NULL,
-    wounds INT NOT NULL,
-    leadership INT NOT NULL,
-    objective_control INT NOT NULL,
-    invuln_save INT NOT NULL DEFAULT 0,
-    CONSTRAINT fk_unitid
-        FOREIGN KEY(army_id)
+    id SERIAL PRIMARY KEY UNIQUE,
+    unit_id INT NOT NULL,
+    faction_id TEXT NOT NULL,
+    line INT NOT NULL,
+    name TEXT NOT NULL,
+    M TEXT NOT NULL,
+    WS TEXT NOT NULL,
+    BS TEXT NOT NULL,
+    S TEXT NOT NULL,
+    T TEXT NOT NULL,
+    W TEXT NOT NULL,
+    A TEXT NOT NULL,
+    Ld TEXT NOT NULL,
+    Sv TEXT NOT NULL DEFAULT 0,
+    models_per_unit TEXT NOT NULL,
+    cost INT NOT NULL DEFAULT 0,
+    CONSTRAINT fk_factionid
+        FOREIGN KEY(faction_id)
             REFERENCES warhammer.armies(id)
-            ON DELETE SET NULL
+            ON DELETE CASCADE
 );
 
 COMMIT;

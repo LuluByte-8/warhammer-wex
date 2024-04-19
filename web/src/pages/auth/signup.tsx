@@ -36,6 +36,8 @@ export default function SignUp() {
       })
       .catch((error) => {
         const errorMessage = error.message;
+
+        // eslint-disable-next-line no-console -- only seen by devs
         console.error(errorMessage);
       });
   };

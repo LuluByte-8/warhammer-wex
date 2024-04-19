@@ -46,7 +46,6 @@ export default Category;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const data = await prisma.categories.findMany();
-  console.log(data);
 
   return { props: { data } };
 };
