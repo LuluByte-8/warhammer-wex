@@ -17,8 +17,10 @@ CREATE TABLE IF NOT EXISTS warhammer.units (
     A TEXT NOT NULL,
     Ld TEXT NOT NULL,
     Sv TEXT NOT NULL DEFAULT 0,
-    models_per_unit TEXT NOT NULL,
+    minUnits INT NOT NULL,
+    maxUnits INT NOT NULL,
     cost INT NOT NULL DEFAULT 0,
+    role TEXT NOT NULL,
     CONSTRAINT fk_factionid
         FOREIGN KEY(faction_id)
             REFERENCES warhammer.armies(id)

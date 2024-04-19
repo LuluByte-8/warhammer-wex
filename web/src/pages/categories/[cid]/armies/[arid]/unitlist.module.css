@@ -19,16 +19,21 @@
 }
 
 .leftSection {
-  border: solid red 1px;
+  text-align: center;
   min-width: 20%;
   max-height: 700px;
   overflow: hidden;
 }
 
+.leftSection li {
+  font-size: var(--fontsize-xs);
+  margin-bottom: var(--fixed-m-gap);
+}
+
 .rightSection {
-  border: solid red 1px;
+  padding: var(--spacing-unit-xs);
   min-width: 80%;
-  max-height: 700px;
+  max-height: 800px;
   display: flex;
   flex-direction: row;
   gap: 30px;

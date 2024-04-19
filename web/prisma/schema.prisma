@@ -25,23 +25,25 @@ model categories {
 }
 
 model units {
-  id              Int    @id @default(autoincrement())
-  unit_id         Int
-  faction_id      String
-  line            Int
-  name            String
-  m               String
-  ws              String
-  bs              String
-  s               String
-  t               String
-  w               String
-  a               String
-  ld              String
-  sv              String @default(dbgenerated("0"))
-  models_per_unit String
-  cost            Int    @default(0)
-  armies          armies @relation(fields: [faction_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_factionid")
+  id         Int    @id @default(autoincrement())
+  unit_id    Int
+  faction_id String
+  line       Int
+  name       String
+  m          String
+  ws         String
+  bs         String
+  s          String
+  t          String
+  w          String
+  a          String
+  ld         String
+  sv         String @default(dbgenerated("0"))
+  minunits   Int
+  maxunits   Int
+  cost       Int    @default(0)
+  role       String
+  armies     armies @relation(fields: [faction_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_factionid")
 }
 
 model userprofile {

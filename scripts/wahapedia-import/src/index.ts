@@ -37,6 +37,7 @@ const datasheetUnitSchema = z.object({
   unit_id: z.number(),
   faction_id: z.string(),
   name: z.string(),
+  role: z.string(),
 });
 
 type Faction = z.infer<typeof factionSchema>;
@@ -44,8 +45,8 @@ type ModelUnit = z.infer<typeof modelUnitSchema>;
 type DatasheetUnit = z.infer<typeof datasheetUnitSchema>;
 
 type DbModelUnit = Omit<ModelUnit, "models_per_unit"> & {
-  minUnits: number;
-  maxUnits: number;
+  minunits: number;
+  maxunits: number;
 };
 
 interface ISource<T> {
@@ -127,8 +128,8 @@ const main = async () => {
     const { models_per_unit, ...requiredProps } = unit;
     return {
       ...requiredProps,
-      minUnits: parseInt(minMaxUnits[0], 10),
-      maxUnits: parseInt(minMaxUnits[minMaxUnits.length - 1], 10),
+      minunits: parseInt(minMaxUnits[0], 10),
+      maxunits: parseInt(minMaxUnits[minMaxUnits.length - 1], 10),
     };
   });
   const datasheet = loadSource(datasheetUnitSource);
@@ -151,7 +152,7 @@ const main = async () => {
     return { ...unit, ...rest };
   });
 
-  console.log(mergedUnits);
+  // console.log(mergedUnits);
 
   // const unitIdCount = new Map<number, number>();
 
@@ -173,13 +174,13 @@ const main = async () => {
 
   // console.log(factionIdCount);
 
-  // const armies = await prisma.armies.createMany({
-  //   data: [...factions],
-  // });
+  const armies = await prisma.armies.createMany({
+    data: [...factions],
+  });
 
-  // const units = await prisma.units.createMany({
-  //   data: [...mergedUnits],
-  // });
+  const units = await prisma.units.createMany({
+    data: [...mergedUnits],
+  });
 };
 
 main();

@@ -1,4 +1,5 @@
 import React from "react";
+import { Prisma } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 import hero from "@/assets/UnitsHeroImage.png";
@@ -12,7 +13,47 @@ import styles from "./unitlist.module.css";
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ units, army }) => {
+> = ({ units, army, filters }) => {
+  const initalFilters = React.useMemo(() => {
+    let filterMap: Record<string, boolean> = {};
+
+    filters.forEach((f) => (filterMap[f] = false));
+    return filterMap;
+  }, [filters]);
+
+  const [state, setState] =
+    React.useState<Record<string, boolean>>(initalFilters);
+
+  const onFilterChange = React.useCallback(
+    (filter: string, isFiltered: boolean) => {
+      setState((current) => {
+        const newState = { ...current };
+        newState[filter] = isFiltered;
+        return newState;
+      });
+    },
+    [setState]
+  );
+
+  const noFilters = !Object.values(state).some((v) => v);
+
+  const filteredUnits = noFilters
+    ? units
+    : units.filter((unit) => state[unit.role]);
+
+  /**
+   * // state
+   *
+   * {
+   *    Heavy Support: true,
+   *    Troops: false,
+   *    Flyyers: true
+   * .....
+   * }
+   *
+   *
+   */
+
   return (
     <main>
       <NavBar />
@@ -27,12 +68,24 @@ const ArmyPage: React.FC<
       <div className={`${styles.contentWrapper}`}>
         <div className={`${styles.leftSection}`}>
           <h1>{army.name}</h1>
-          <p>*Option selection/filtering goes here*</p>
+          <ul>
+            {filters.map((filter) => (
+              <li key={filter}>
+                <label>
+                  {filter}
+                  <input
+                    type="checkbox"
+                    value={filter}
+                    onChange={(e) => onFilterChange(filter, e.target.checked)}
+                  ></input>
+                </label>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className={`${styles.rightSection}`}>
-          {/* <h1>{army.name}</h1> */}
-          {units.map((unit) => {
+          {filteredUnits.map((unit) => {
             if (unit.line === 1) {
               return (
                 <div key={unit.unit_id}>
@@ -89,7 +142,15 @@ export const getServerSideProps = async (
     };
   }
 
+  const filterRes = (await prisma.$queryRaw(
+    Prisma.sql`SELECT DISTINCT(role) from warhammer.units WHERE role != '' AND faction_id=${arid};`
+  )) as {
+    role: "string";
+  }[];
+
+  const filters = filterRes.map((res) => res.role);
+
   return {
-    props: { units: units, army: army },
+    props: { units, army, filters },
   };
 };
