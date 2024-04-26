@@ -8,10 +8,7 @@ CREATE TABLE IF NOT EXISTS warhammer.armies (
     name TEXT NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,
     banner_url TEXT,
-    CONSTRAINT fk_categoryid
-        FOREIGN KEY(category_id)
-            REFERENCES warhammer.categories(id)
-            ON DELETE SET NULL
+    CONSTRAINT fk_categoryid FOREIGN KEY(category_id) REFERENCES warhammer.categories(id) ON DELETE CASCADE
 );
 
 COMMIT;

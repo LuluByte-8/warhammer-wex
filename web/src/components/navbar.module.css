@@ -7,8 +7,24 @@
   padding: var(--spacing-unit-xxs);
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
+  position: relative;
+  font-family: var(--font-open-sans);
+}
 
-    font-family: var(--font-open-sans);
+.navbarLeft {
+  display: flex;
+  gap: var(--spacing-unit-xl);
+}
+
+.navbarRight {
+  display: flex;
+  gap: var(--spacing-unit-xl);
+  align-items: center;
+}
+
+.navbarRight input {
+  border-radius: var(--border-radius-s);
 }
 
 .logoContainer {
@@ -22,7 +38,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-unit-s);
+  gap: var(--spacing-unit-xxs);
 }
 
 .linkClass {
@@ -52,7 +68,6 @@
   flex-shrink: 0;
   float: right;
   gap: var(--fixed-xxs-gap);
-
 }
 
 .formButton {
