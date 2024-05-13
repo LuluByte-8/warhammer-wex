@@ -39,7 +39,8 @@ export const Datasheet: React.FC<IDatasheetProps> = ({ units }) => {
         return (
           <div className={`${styles.statBlockContainer}`} key={index}>
             <div className={`${styles.statBlockLeft}`}>
-              <p>{unit.models_per_unit}</p>
+              <p>{unit.minunits}</p>
+              <p>{unit.maxunits}</p>
               <p>{unit.name}</p>
             </div>
 

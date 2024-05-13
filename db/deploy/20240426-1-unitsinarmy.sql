@@ -5,7 +5,7 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS warhammer.unitsinarmy (
     unitsinarmyid SERIAL PRIMARY KEY UNIQUE,
     id SERIAL NOT NULL,
-    customarmyId SERIAL UNIQUE,
+    customarmyId SERIAL,
     unit_id INT NOT NULL,
     name TEXT NOT NULL,
     line INT NOT NULL,

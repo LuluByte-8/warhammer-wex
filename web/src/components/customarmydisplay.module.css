@@ -1,0 +1,10 @@
+.main {
+  font-family: var(--font-open-sans);
+  margin: var(--fixed-s-gap);
+  width: 20%;
+  border: solid black 2px;
+}
+
+.container {
+  margin: var(--fixed-xs-gap);
+}

@@ -94,6 +94,7 @@ const ArmyPage: React.FC<
                     name={unit.name}
                     imageURL="https://placehold.co/200x300"
                     armyId={army.id}
+                    customarmyDisplay={false}
                   />
                 </div>
               );

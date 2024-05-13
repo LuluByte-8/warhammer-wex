@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from "next";
 import { InferGetServerSidePropsType } from "next";
 import nookies from "nookies";
 
+import { CustomArmyDisplay } from "@/components/customarmydisplay";
 import { NavBar } from "@/components/navbar";
 import { firebaseAdmin } from "@/lib/firebaseAdmin";
 import prisma from "@/lib/prisma";
@@ -13,20 +14,22 @@ const armybuilder: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ data }) => {
   return (
-    <main>
+    <main className={`${styles.main}`}>
       <NavBar />
+      <h1>Your Armies</h1>
+      <hr />
       <div className={styles.bodyClass}>
-        <h1>Test</h1>
         {data.map((data, i) => {
           return (
-            <ul key={i}>
-              <li>Custom Army Id: {data.customarmyid}</li>
-              <li>Custom Army Name: {data.customarmyname}</li>
-              <li>Custom Army Type: {data.customarmytype}</li>
-              <li>Custom Army UserId: {data.firebaseuserid}</li>
-              <li>Custom Army Username: {data.username}</li>
-            </ul>
-            //Make component, return relavent info, button to create new army, army display, display units in that army
+            <CustomArmyDisplay
+              key={i}
+              customarmyname={data.customarmyname}
+              customarmytype={data.customarmytype}
+              customarmyid={data.customarmyid}
+            />
+
+            // Make army display component, button to link to army display page -> display units in that army
+            // 'Add to army' button on units page, 'Create Army' button on faction page
           );
         })}
       </div>
@@ -43,9 +46,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     try {
       const data = await prisma.customarmy.findMany({
-        // where: { firebaseuserid: token.uid },
+        where: { firebaseuserid: token.uid },
       });
-      console.log(data);
       return { props: { data } };
     } catch {
       return { notFound: true };
