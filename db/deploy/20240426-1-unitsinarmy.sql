@@ -5,6 +5,7 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS warhammer.unitsinarmy (
     unitsinarmyid SERIAL PRIMARY KEY UNIQUE,
     id SERIAL NOT NULL,
+    customarmyId SERIAL UNIQUE,
     unit_id INT NOT NULL,
     name TEXT NOT NULL,
     line INT NOT NULL,
@@ -12,7 +13,8 @@ CREATE TABLE IF NOT EXISTS warhammer.unitsinarmy (
     maxUnits INT NOT NULL,
     cost INT NOT NULL DEFAULT 0,
 
-    CONSTRAINT fk_id FOREIGN KEY(id) REFERENCES warhammer.units(id) ON DELETE CASCADE
+    CONSTRAINT fk_id FOREIGN KEY(id) REFERENCES warhammer.units(id) ON DELETE CASCADE,
+    CONSTRAINT fk_customarmyId FOREIGN KEY(customarmyId) REFERENCES warhammer.customarmy(customarmyId) ON DELETE CASCADE
    
 );
 

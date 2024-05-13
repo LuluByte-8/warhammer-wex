@@ -18,7 +18,6 @@ export const NavBar = () => {
   const apiUrl = "http://localhost:3000/api/textsearch";
 
   const search = async (searchContent: string) => {
-    console.log(searchContent);
     const result = await fetch(apiUrl, {
       method: "POST",
       body: searchContent,
