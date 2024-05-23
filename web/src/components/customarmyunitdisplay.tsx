@@ -55,13 +55,17 @@ export const CustomArmyUnitDisplay: React.FC<ICustomArmyUnitDisplay> = ({
     return map;
   }, [regimentmembers, units]);
 
-  const squadCost = Array.from(unitMap.entries()).forEach(([key, value]) => {
+  const getUnitCost = Array.from(unitMap.entries()).map(([key, value]) => {
     const unit = units.find((u) => u.name === key);
 
-    console.log(value);
+    if (!unit) {
+      return;
+    }
+
+    return unit.cost * value;
   });
 
-  console.log(squadCost);
+  const squadCost = getUnitCost.reduce((acc, curr: any) => acc + curr, 0);
 
   return (
     <div className={`${styles.container}`}>
@@ -96,7 +100,7 @@ export const CustomArmyUnitDisplay: React.FC<ICustomArmyUnitDisplay> = ({
             );
           })}
 
-          <p className={`${styles.unitName}`}>Cost: </p>
+          <p className={`${styles.unitName}`}>Point Cost: {squadCost}</p>
         </div>
 
         <Link

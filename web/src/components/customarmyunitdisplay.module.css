@@ -23,6 +23,9 @@
   min-width: 20px;
 }
 .numUnits {
+  min-width: 25px;
+  text-align: center;
+  background-color: var(--white);
   border: solid 1px black;
 }
 

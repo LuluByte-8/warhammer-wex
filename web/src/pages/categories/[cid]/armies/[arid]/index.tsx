@@ -1,19 +1,21 @@
 import React from "react";
 import { Prisma } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import nookies from "nookies";
 
 import hero from "@/assets/UnitsHeroImage.png";
 import { Footer } from "@/components/footer";
 import { HeroImage } from "@/components/heroimage";
 import { NavBar } from "@/components/navbar";
 import { UnitDisplay } from "@/components/unitdisplay";
+import { firebaseAdmin } from "@/lib/firebaseAdmin";
 import prisma from "@/lib/prisma";
 
 import styles from "./unitlist.module.css";
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ squads, army, filters }) => {
+> = ({ squads, army, filters, armyCheck }) => {
   const initalFilters = React.useMemo(() => {
     let filterMap: Record<string, boolean> = {};
 
@@ -89,10 +91,11 @@ const ArmyPage: React.FC<
             return (
               <div key={squad.squad_id}>
                 <UnitDisplay
-                  unitId={squad.squad_id}
+                  squadId={squad.squad_id}
                   name={squad.squad_name}
                   imageURL="https://placehold.co/200x300"
                   armyId={army.id}
+                  customarmies={armyCheck}
                 />
               </div>
             );
@@ -148,7 +151,25 @@ export const getServerSideProps = async (
 
   const filters = filterRes.map((res) => res.role);
 
-  return {
-    props: { squads, army, filters },
-  };
+  try {
+    const cookies = nookies.get(context);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
+    const armyCheck = await prisma.customarmy.findMany({
+      where: { firebaseuser_id: token.uid },
+      select: {
+        customarmy_name: true,
+        customarmy_faction: true,
+        customarmy_id: true,
+      },
+    });
+
+    return {
+      props: { squads, army, filters, armyCheck },
+    };
+  } catch (error) {
+    return {
+      props: { squads, army, filters, armyCheck: [] },
+    };
+  }
 };

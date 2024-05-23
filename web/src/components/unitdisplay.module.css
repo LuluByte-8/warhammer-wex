@@ -1,7 +1,7 @@
 .container {
   max-width: 250px;
   min-width: 250px;
-  max-height: 400px;
+  max-height: 500px;
   background-color: var(--lightgrey);
   display: flex;
   flex-direction: column;
@@ -17,6 +17,7 @@
 }
 
 .bannercontainer {
+  overflow: auto;
   background-color: var(--whiteshade2);
   max-width: 350px;
   min-height: 100px;
@@ -26,7 +27,7 @@
 }
 
 .bannercontainer h1 {
-  font-size: var(--fontsize-xs);
+  font-size: 15px;
 }
 
 .unitbutton {

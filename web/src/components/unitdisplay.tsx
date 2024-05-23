@@ -4,19 +4,29 @@ import Link from "next/link";
 
 import styles from "@/components/unitdisplay.module.css";
 
+import { AddSquadDialog } from "./addsquaddialog";
+
+export interface ICustomArmy {
+  customarmy_name: string;
+  customarmy_faction: string;
+  customarmy_id: number;
+}
+
 interface IUnitDisplay {
   unitsinarmyid?: number;
-  unitId: number;
+  squadId: number;
   imageURL: string | StaticImageData;
   name: string;
   armyId: string;
+  customarmies: ICustomArmy[];
 }
 
 export const UnitDisplay: React.FC<IUnitDisplay> = ({
-  unitId,
+  squadId,
   imageURL,
   name,
   armyId,
+  customarmies,
 }) => {
   return (
     <div className={`${styles.container}`}>
@@ -27,17 +37,23 @@ export const UnitDisplay: React.FC<IUnitDisplay> = ({
 
       <div className={`${styles.bannercontainer}`}>
         <h1>{name}</h1>
-        <Link
-          href={`${armyId}/units/${unitId}`}
-          key={name}
-          className={`${styles.unitlink}`}
-        >
-          <div className={`${styles.buttonwrapper}`}>
-            <button className={`${styles.unitbutton}`}>
-              <b>See unit details</b>
-            </button>
-          </div>
-        </Link>
+        <div className={`${styles.buttonwrapper}`}>
+          <Link
+            className={`${styles.unitbutton}`}
+            href={`${armyId}/units/${squadId}`}
+          >
+            <b>See squad details</b>
+          </Link>
+          <AddSquadDialog
+            name={name}
+            squadId={squadId}
+            factionId={armyId}
+            customarmies={customarmies}
+          />
+          {/* <button className={`${styles.unitbutton}`}>
+              <b>Add squad to army</b>
+            </button> */}
+        </div>
       </div>
     </div>
   );
