@@ -3,9 +3,8 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS warhammer.units (
-    id SERIAL PRIMARY KEY UNIQUE,
-    unit_id INT NOT NULL,
-    faction_id TEXT NOT NULL,
+    unit_id SERIAL PRIMARY KEY UNIQUE,
+    squad_id INT NOT NULL,
     line INT NOT NULL,
     name TEXT NOT NULL,
     M TEXT NOT NULL,
@@ -20,10 +19,9 @@ CREATE TABLE IF NOT EXISTS warhammer.units (
     minUnits INT NOT NULL,
     maxUnits INT NOT NULL,
     cost INT NOT NULL DEFAULT 0,
-    role TEXT NOT NULL,
-    CONSTRAINT fk_factionid
-        FOREIGN KEY(faction_id)
-            REFERENCES warhammer.armies(id)
+    CONSTRAINT fk_squadid
+        FOREIGN KEY(squad_id)
+            REFERENCES warhammer.squads(squad_id)
             ON DELETE CASCADE
 );
 

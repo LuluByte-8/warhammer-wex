@@ -17,7 +17,7 @@ const factionSchema = z.object({
 });
 
 const modelUnitSchema = z.object({
-  datasheet_id: z.number(),
+  squad_id: z.number(),
   name: z.string(),
   line: z.number(),
   m: z.string(),
@@ -34,9 +34,9 @@ const modelUnitSchema = z.object({
 });
 
 const datasheetUnitSchema = z.object({
-  unit_id: z.number(),
+  squad_id: z.number(),
   faction_id: z.string(),
-  name: z.string(),
+  squad_name: z.string(),
   role: z.string(),
 });
 
@@ -70,7 +70,7 @@ const modelUnitSource: ISource<ModelUnit> = {
   path: "../data/DatasheetsModels.csv",
   schema: modelUnitSchema,
   cast: (value, context) => {
-    if (context.column === "datasheet_id" || context.column === "line") {
+    if (context.column === "squad_id" || context.column === "line") {
       return parseInt(value, 10);
     } else if (context.column === "cost") {
       if (value === "") {
@@ -86,7 +86,7 @@ const datasheetUnitSource: ISource<DatasheetUnit> = {
   path: "../data/Datasheets.csv",
   schema: datasheetUnitSchema,
   cast: (value, context) => {
-    if (context.column === "unit_id") {
+    if (context.column === "squad_id") {
       return parseInt(value, 10);
     }
     return value;
@@ -140,17 +140,17 @@ const main = async () => {
 
   const unitMap = new Map<number, DatasheetUnit>();
 
-  datasheet.forEach((value, i) => {
-    unitMap.set(value.unit_id, value);
-  });
+  // datasheet.forEach((value, i) => {
+  //   unitMap.set(value.unit_id, value);
+  // });
 
   // console.log(unitMap);
 
-  const mergedUnits = modelUnit.map((m) => {
-    const { datasheet_id, ...rest } = m;
-    const unit = unitMap.get(datasheet_id)!;
-    return { ...unit, ...rest };
-  });
+  // const mergedUnits = modelUnit.map((m) => {
+  //   const { datasheet_id, ...rest } = m;
+  //   const unit = unitMap.get(datasheet_id)!;
+  //   return { ...unit, ...rest };
+  // });
 
   // console.log(mergedUnits);
 
@@ -178,8 +178,12 @@ const main = async () => {
     data: [...factions],
   });
 
+  const squads = await prisma.squads.createMany({
+    data: [...datasheet],
+  });
+
   const units = await prisma.units.createMany({
-    data: [...mergedUnits],
+    data: [...modelUnit],
   });
 };
 

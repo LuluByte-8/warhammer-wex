@@ -3,8 +3,8 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS warhammer.userprofile (
-    userId SERIAL PRIMARY KEY UNIQUE,
-    firebaseId VARCHAR NOT NULL UNIQUE,
+    user_id SERIAL PRIMARY KEY UNIQUE,
+    firebase_id VARCHAR NOT NULL UNIQUE,
     username TEXT NOT NULL UNIQUE
 );
 

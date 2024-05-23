@@ -3,7 +3,7 @@
 BEGIN;
 
 INSERT INTO 
-    warhammer.userprofile (firebaseid, username) 
+    warhammer.userprofile (firebase_id, username) 
 VALUES
     ('0b6QzrYUmxaNmyy6u8KUuNA0mBe2','TestUser');
 

@@ -1,4 +1,4 @@
-datasheet_id,line,name,m,ws,bs,s,t,w,a,ld,sv,cost,cost_description,models_per_unit,cost_including_wargear,base_size,base_size_descr
+squad_id,line,name,m,ws,bs,s,t,w,a,ld,sv,cost,cost_description,models_per_unit,cost_including_wargear,base_size,base_size_descr
 1,1,Warboss,"5""",2+,5+,6,6,6,5,8,4+,90,,1,FALSE,40mm,
 2,1,Warboss in Mega Armour,"5""",2+,5+,6,6,7,5,8,2+,115,,1,FALSE,50mm,
 3,1,Warboss on Warbike,"14""",2+,5+,6,7,7,5,8,4+,115,,1,FALSE,100 x 40mm,

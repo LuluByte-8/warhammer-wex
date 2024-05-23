@@ -13,7 +13,7 @@ import styles from "./unitlist.module.css";
 
 const ArmyPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ units, army, filters }) => {
+> = ({ squads, army, filters }) => {
   const initalFilters = React.useMemo(() => {
     let filterMap: Record<string, boolean> = {};
 
@@ -38,8 +38,8 @@ const ArmyPage: React.FC<
   const noFilters = !Object.values(state).some((v) => v);
 
   const filteredUnits = noFilters
-    ? units
-    : units.filter((unit) => state[unit.role]);
+    ? squads
+    : squads.filter((squad) => state[squad.role]);
 
   /**
    * // state
@@ -85,20 +85,17 @@ const ArmyPage: React.FC<
         </div>
 
         <div className={`${styles.rightSection}`}>
-          {filteredUnits.map((unit) => {
-            if (unit.line === 1) {
-              return (
-                <div key={unit.unit_id}>
-                  <UnitDisplay
-                    unitId={unit.unit_id}
-                    name={unit.name}
-                    imageURL="https://placehold.co/200x300"
-                    armyId={army.id}
-                    customarmyDisplay={false}
-                  />
-                </div>
-              );
-            }
+          {filteredUnits.map((squad) => {
+            return (
+              <div key={squad.squad_id}>
+                <UnitDisplay
+                  unitId={squad.squad_id}
+                  name={squad.squad_name}
+                  imageURL="https://placehold.co/200x300"
+                  armyId={army.id}
+                />
+              </div>
+            );
           })}
         </div>
       </div>
@@ -131,20 +128,20 @@ export const getServerSideProps = async (
     };
   }
 
-  const units = await prisma.units.findMany({
+  const squads = await prisma.squads.findMany({
     where: {
       faction_id: arid,
     },
   });
 
-  if (units.length === 0) {
+  if (squads.length === 0) {
     return {
       notFound: true,
     };
   }
 
   const filterRes = (await prisma.$queryRaw(
-    Prisma.sql`SELECT DISTINCT(role) from warhammer.units WHERE role != '' AND faction_id=${arid};`
+    Prisma.sql`SELECT DISTINCT(role) from warhammer.squads WHERE role != '' AND faction_id=${arid};`
   )) as {
     role: "string";
   }[];
@@ -152,6 +149,6 @@ export const getServerSideProps = async (
   const filters = filterRes.map((res) => res.role);
 
   return {
-    props: { units, army, filters },
+    props: { squads, army, filters },
   };
 };

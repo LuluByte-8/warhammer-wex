@@ -1,9 +1,11 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
+import nookies from "nookies";
 
+import { CustomArmyUnitDisplay } from "@/components/customarmyunitdisplay";
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
-import { UnitDisplay } from "@/components/unitdisplay";
+import { firebaseAdmin } from "@/lib/firebaseAdmin";
 import prisma from "@/lib/prisma";
 
 import hero from "../../../../assets/CustomArmyHero.jpeg";
@@ -12,41 +14,39 @@ import styles from "./customarmy.module.css";
 
 const CustomArmy: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = (customarmy) => {
-  console.log(customarmy);
+> = ({ customarmy, squads, units, regimentMembers, owner }) => {
+  type RegimentMembers = (typeof regimentMembers)[0];
+
+  const groupedRegimentMembers = regimentMembers.reduce(
+    (agg, rm) => {
+      if (!agg[rm.regiment_id]) {
+        agg[rm.regiment_id] = [] as Array<RegimentMembers>;
+      }
+
+      agg[rm.regiment_id].push(rm);
+      return agg;
+    },
+    {} as Record<number, Array<RegimentMembers>>
+  );
+
   return (
     <main className={`${styles.main}`}>
       <NavBar />
 
       <div className={styles.heroImageWrapper}>
-        <Image className={styles.heroImage} src={hero} alt="hero" />
+        <Image className={styles.heroImage} src={hero} alt="hero-image" />
       </div>
 
       <div className={`${styles.armyTitle}`}>
         <div className={`${styles.armyTitleH}`}>
-          <h1>{customarmy.customarmyname}</h1>
+          <h1>{customarmy.customarmy_name}</h1>
           <h2>Created By: {customarmy.username}</h2>
         </div>
-        <div className={`${styles.armyTitleP}`}>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a
-            porttitor eros. Vestibulum varius elementum magna, et sollicitudin
-            lacus mollis et. Curabitur et ullamcorper metus, feugiat suscipit
-            nisi. Suspendisse tempor malesuada consectetur. Nullam ac nisl in
-            elit semper tristique. Praesent blandit nibh ante, efficitur
-            scelerisque tortor pretium vel. Quisque faucibus justo at nisl
-            posuere bibendum. Phasellus porta ipsum nunc, nec placerat odio
-            lacinia id. Maecenas placerat ipsum nibh, ac cursus tortor cursus
-            non. Phasellus porttitor volutpat venenatis. Pellentesque suscipit
-            malesuada lacus a facilisis. Maecenas venenatis quam nisi. Vivamus
-            erat est, euismod porttitor risus eget, eleifend aliquet arcu.
-            Nullam commodo finibus fringilla.
-          </p>
-        </div>
+        <div className={`${styles.armyTitleP}`}></div>
       </div>
 
       <div className={`${styles.units}`}>
-        {customarmy.unitsinarmy.length === 0 ? (
+        {squads.length === 0 ? (
           <div className={`${styles.noUnits}`}>
             <h2>No Units!</h2>
             <p>
@@ -56,22 +56,25 @@ const CustomArmy: React.FC<
           </div>
         ) : (
           <div className={`${styles.units}`}>
-            {customarmy.unitsinarmy.map((unit) => {
-              if (unit.line === 1) {
+            {Object.entries(groupedRegimentMembers).map(
+              ([regiment_id, members]) => {
+                if (members.length === 0) return null;
+
                 return (
-                  <div key={unit.unit_id}>
-                    <UnitDisplay
-                      unitsinarmyid={unit.unitsinarmyid}
-                      unitId={unit.unit_id}
-                      name={unit.name}
-                      imageURL="https://placehold.co/200x300"
-                      armyId={customarmy.customarmytype}
-                      customarmyDisplay={true}
-                    />
-                  </div>
+                  <CustomArmyUnitDisplay
+                    key={regiment_id}
+                    squads={
+                      squads.find((s) => s.squad_id === members[0].squad_id)!
+                    }
+                    units={units}
+                    customarmy={customarmy}
+                    regiment_id={+regiment_id}
+                    regimentmembers={members}
+                    owner={owner}
+                  />
                 );
               }
-            })}
+            )}
           </div>
         )}
       </div>
@@ -83,6 +86,14 @@ const CustomArmy: React.FC<
 
 export default CustomArmy;
 
+export type Squads = Awaited<ReturnType<typeof prisma.squads.findFirstOrThrow>>;
+
+export type Units = Awaited<ReturnType<typeof prisma.units.findFirstOrThrow>>;
+
+export type CustomArmy = Awaited<
+  ReturnType<typeof prisma.customarmy.findFirstOrThrow>
+>;
+
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const caid = ctx.query.caid;
 
@@ -92,17 +103,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     };
   }
 
-  // const customarmy = await prisma.customarmy.findUnique({
-  //   where: { customarmyid: +caid },
-  //   include: {
-  //     unitsinarmy: {
-  //       where: { customarmyid: +caid },
-  //     },
-  //   },
-  // });
-
   const customarmy = await prisma.customarmy.findUnique({
-    where: { customarmyid: +caid },
+    where: { customarmy_id: +caid },
   });
 
   if (!customarmy) {
@@ -111,9 +113,88 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     };
   }
 
-  const unitsinarmy = await prisma.unitsinarmy.findMany({
-    where: { customarmyid: +caid },
+  // const squadsinarmy = await prisma.squadsincustomarmy.findMany({
+  //   where: { customarmyid: +caid },
+  // });
+
+  // const myArrayOfSquads = [];
+  // for (let i = 0; i < squadsinarmy.length; i++) {
+  //   const unitsinsquad = await prisma.squads.findMany({
+  //     where: { squad_id: squadsinarmy[i].squad_id },
+  //     include: { units: {} },
+  //   });
+
+  //   myArrayOfSquads.push(...unitsinsquad);
+  // }
+
+  // const squadsinarmy = await prisma.squadsincustomarmy.findMany({
+  //   where: { customarmy_id: +caid },
+  //   include: {
+  //     squads: {
+  //       include: {
+  //         units: {},
+  //       },
+  //     },
+  //   },
+  // });
+
+  const regiments = await prisma.regiments.findMany({
+    where: { customarmy_id: +caid },
+    include: {
+      regimentmember: {
+        include: {
+          squads: {},
+          units: {},
+        },
+      },
+    },
   });
 
-  return { props: { ...customarmy, unitsinarmy } };
+  const regimentMembers = await prisma.regimentmember.findMany({
+    where: {
+      regiments: {
+        customarmy_id: +caid,
+      },
+    },
+  });
+
+  const squadIds = Array.from(
+    new Set(regimentMembers.map((rm) => rm.squad_id))
+  );
+  const unitIds = Array.from(new Set(regimentMembers.map((rm) => rm.unit_id)));
+
+  const squads = await prisma.squads.findMany({
+    where: {
+      squad_id: {
+        in: squadIds,
+      },
+    },
+  });
+
+  const units = await prisma.units.findMany({
+    where: {
+      unit_id: {
+        in: unitIds,
+      },
+    },
+  });
+
+  // console.log(regimentMembers);
+
+  try {
+    const cookies = nookies.get(ctx);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
+    const ownerCheck = await prisma.customarmy.findFirstOrThrow({
+      where: { firebaseuser_id: token.uid, customarmy_id: +caid },
+    });
+
+    return {
+      props: { customarmy, squads, units, regimentMembers, owner: true },
+    };
+  } catch (error) {
+    return {
+      props: { customarmy, squads, units, regimentMembers, owner: false },
+    };
+  }
 };

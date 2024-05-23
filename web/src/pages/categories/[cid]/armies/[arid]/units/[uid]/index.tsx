@@ -54,7 +54,7 @@ export const getServerSideProps = async (
   const uid = +context.query.uid;
   const unit = await prisma.units.findMany({
     where: {
-      unit_id: uid,
+      squad_id: uid,
     },
   });
   if (!unit) {

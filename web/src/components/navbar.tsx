@@ -73,7 +73,7 @@ export const NavBar = () => {
             }}
           >
             {searchResults.map((u) => (
-              <a key={u.id}>{u.name}</a>
+              <a key={u.unit_id}>{u.name}</a>
             ))}
           </div>
         </div>

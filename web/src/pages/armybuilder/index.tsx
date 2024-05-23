@@ -23,9 +23,9 @@ const armybuilder: React.FC<
           return (
             <CustomArmyDisplay
               key={i}
-              customarmyname={data.customarmyname}
-              customarmytype={data.customarmytype}
-              customarmyid={data.customarmyid}
+              customarmyname={data.customarmy_name}
+              customarmytype={data.customarmy_faction}
+              customarmyid={data.customarmy_id}
             />
 
             // Make army display component, button to link to army display page -> display units in that army
@@ -46,10 +46,11 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     try {
       const data = await prisma.customarmy.findMany({
-        where: { firebaseuserid: token.uid },
+        where: { firebaseuser_id: token.uid },
       });
       return { props: { data } };
-    } catch {
+    } catch (err) {
+      console.log(err);
       return { notFound: true };
     }
   } catch (err) {

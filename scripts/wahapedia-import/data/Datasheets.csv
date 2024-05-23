@@ -1,4 +1,4 @@
-unit_id,name,link,faction_id,source_id,role,unit_composition,transport,power_points,priest,psyker,open_play_only,crusade_only,virtual,Cost,cost_per_unit
+squad_id,squad_name,link,faction_id,source_id,role,unit_composition,transport,power_points,priest,psyker,open_play_only,crusade_only,virtual,Cost,cost_per_unit
 1,Warboss,https://wahapedia.ru/wh40k9ed/factions/orks/Warboss,ORK,46,HQ,A Warboss is equipped with: big choppa; kombi-rokkit; 2 sluggas; stikkbombs.,,5,,,FALSE,FALSE,FALSE,,FALSE
 2,Warboss in Mega Armour,https://wahapedia.ru/wh40k9ed/factions/orks/Warboss-in-Mega-Armour,ORK,46,HQ,A Warboss in Mega Armour is equipped with: big shoota; ’uge choppa.,,6,,,FALSE,FALSE,FALSE,,FALSE
 3,Warboss on Warbike,https://wahapedia.ru/wh40k9ed/factions/orks/Warboss-on-Warbike,ORK,146,HQ,A Warboss on Warbike is equipped with: 2 dakkaguns; killsaw.,,6,,,FALSE,FALSE,FALSE,,FALSE

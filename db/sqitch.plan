@@ -5,8 +5,12 @@
 20231201-1-categories 2023-12-01T10:39:36Z System Administrator <root@Lucys-MacBook-Pro.local> # add categories table
 20231201-2-categories 2023-12-01T11:07:11Z System Administrator <root@Lucys-MacBook-Pro.local> # instert category data
 20231201-1-armies 2023-12-01T12:13:13Z System Administrator <root@Lucys-MacBook-Pro.local> # create armies table
+20240515-1-squads 2024-05-15T11:39:40Z System Administrator <root@Lucys-MacBook-Pro.local> # create squads table
 20231201-1-unit 2023-12-01T13:24:36Z System Administrator <root@Lucys-MacBook-Pro.local> # create unit table
 20240126-1-userprofile 2024-02-02T10:08:56Z System Administrator <root@Lucys-MacBook-Pro.local> # add userprofile table
 20240426-1-customarmy 2024-04-26T08:44:14Z System Administrator <root@Lucys-MacBook-Pro.local> # add custom army table
-20240426-1-unitsinarmy 2024-04-26T08:43:37Z System Administrator <root@Lucys-MacBook-Pro.local> # add units in army table
+20240426-1-squadsincustomarmy 2024-05-15T11:41:21Z System Administrator <root@Lucys-MacBook-Pro.local> # create squads in army table
 20240426-2-userprofile 2024-04-26T10:20:07Z System Administrator <root@Lucys-MacBook-Pro.local> # add testuserdata to userprofile
+
+20240521-1-regiments 2024-05-21T09:37:35Z System Administrator <root@Lucys-MacBook-Pro.local> # creates regiments table
+20240521-1-regimentmember 2024-05-21T09:38:28Z System Administrator <root@Lucys-MacBook-Pro.local> # creates regimentmembers table

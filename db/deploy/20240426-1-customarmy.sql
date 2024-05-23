@@ -3,14 +3,14 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS warhammer.customarmy (
-    customarmyId SERIAL PRIMARY KEY UNIQUE,
-    firebaseUserId VARCHAR NOT NULL,
-    customArmyType TEXT NOT NULL,
+    customarmy_id SERIAL PRIMARY KEY UNIQUE,
+    firebaseuser_id VARCHAR NOT NULL,
+    customarmy_faction TEXT NOT NULL,
     username TEXT NOT NULL UNIQUE,
-    customarmyName TEXT NOT NULL,
+    customarmy_name TEXT NOT NULL,
 
-    CONSTRAINT fk_firebaseUserId FOREIGN KEY(firebaseUserId) REFERENCES warhammer.userprofile(firebaseid) ON DELETE CASCADE,
-    CONSTRAINT fk_customArmyType FOREIGN KEY(customArmyType) REFERENCES warhammer.armies(id) ON DELETE CASCADE,
+    CONSTRAINT fk_firebaseuser_id FOREIGN KEY(firebaseuser_id) REFERENCES warhammer.userprofile(firebase_id) ON DELETE CASCADE,
+    CONSTRAINT fk_customarmy_faction FOREIGN KEY(customarmy_faction) REFERENCES warhammer.armies(id) ON DELETE CASCADE,
     CONSTRAINT fk_username FOREIGN KEY(username) REFERENCES warhammer.userprofile(username) ON DELETE CASCADE
 );
 
