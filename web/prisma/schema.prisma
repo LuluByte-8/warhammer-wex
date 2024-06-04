@@ -27,16 +27,43 @@ model categories {
 }
 
 model customarmy {
-  customarmy_id                                       Int                  @id @default(autoincrement())
-  firebaseuser_id                                     String               @db.VarChar
+  customarmy_id                                       Int         @id @default(autoincrement())
+  firebaseuser_id                                     String      @db.VarChar
   customarmy_faction                                  String
-  username                                            String               @unique
+  username                                            String
+  description                                         String
   customarmy_name                                     String
-  armies                                              armies               @relation(fields: [customarmy_faction], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_customarmytype")
-  userprofile_customarmy_firebaseuser_idTouserprofile userprofile          @relation("customarmy_firebaseuser_idTouserprofile", fields: [firebaseuser_id], references: [firebase_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_firebaseuserid")
-  userprofile_customarmy_usernameTouserprofile        userprofile          @relation("customarmy_usernameTouserprofile", fields: [username], references: [username], onDelete: Cascade, onUpdate: NoAction, map: "fk_username")
+  armies                                              armies      @relation(fields: [customarmy_faction], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_customarmy_faction")
+  userprofile_customarmy_firebaseuser_idTouserprofile userprofile @relation("customarmy_firebaseuser_idTouserprofile", fields: [firebaseuser_id], references: [firebase_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_firebaseuser_id")
+  userprofile_customarmy_usernameTouserprofile        userprofile @relation("customarmy_usernameTouserprofile", fields: [username], references: [username], onDelete: Cascade, onUpdate: NoAction, map: "fk_username")
   regiments                                           regiments[]
-  squadsincustomarmy                                  squadsincustomarmy[]
+}
+
+model regimentmember {
+  regiment_member_id Int       @id @default(autoincrement())
+  regiment_id        Int       @default(autoincrement())
+  unit_id            Int       @default(autoincrement())
+  squad_id           Int       @default(autoincrement())
+  regiments          regiments @relation(fields: [regiment_id], references: [regiment_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_regiment_id")
+  squads             squads    @relation(fields: [squad_id], references: [squad_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_squad_id")
+  units              units     @relation(fields: [unit_id], references: [unit_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_unit_id")
+}
+
+model regiments {
+  regiment_id    Int              @id @default(autoincrement())
+  customarmy_id  Int              @default(autoincrement())
+  regimentmember regimentmember[]
+  customarmy     customarmy       @relation(fields: [customarmy_id], references: [customarmy_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_customarmy_id")
+}
+
+model squads {
+  squad_id       Int              @id
+  squad_name     String
+  faction_id     String
+  role           String
+  regimentmember regimentmember[]
+  armies         armies           @relation(fields: [faction_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_factionid")
+  units          units[]
 }
 
 model units {
@@ -65,42 +92,5 @@ model userprofile {
   firebase_id                                        String       @unique @db.VarChar
   username                                           String       @unique
   customarmy_customarmy_firebaseuser_idTouserprofile customarmy[] @relation("customarmy_firebaseuser_idTouserprofile")
-  customarmy_customarmy_usernameTouserprofile        customarmy?  @relation("customarmy_usernameTouserprofile")
-}
-
-model squads {
-  squad_id           Int                  @id
-  squad_name         String
-  faction_id         String
-  role               String
-  regimentmember     regimentmember[]
-  armies             armies               @relation(fields: [faction_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_factionid")
-  squadsincustomarmy squadsincustomarmy[]
-  units              units[]
-}
-
-model squadsincustomarmy {
-  squadsincustomarmy_id Int        @id @default(autoincrement())
-  squad_id              Int        @default(autoincrement())
-  customarmy_id         Int        @default(autoincrement())
-  name                  String
-  customarmy            customarmy @relation(fields: [customarmy_id], references: [customarmy_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_customarmyid")
-  squads                squads     @relation(fields: [squad_id], references: [squad_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_squad_id")
-}
-
-model regimentmember {
-  regiment_member_id Int       @id @default(autoincrement())
-  regiment_id        Int       @default(autoincrement())
-  unit_id            Int       @default(autoincrement())
-  squad_id           Int       @default(autoincrement())
-  regiments          regiments @relation(fields: [regiment_id], references: [regiment_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_regiment_id")
-  squads             squads    @relation(fields: [squad_id], references: [squad_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_squad_id")
-  units              units     @relation(fields: [unit_id], references: [unit_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_unit_id")
-}
-
-model regiments {
-  regiment_id    Int              @id @default(autoincrement())
-  customarmy_id  Int              @default(autoincrement())
-  regimentmember regimentmember[]
-  customarmy     customarmy       @relation(fields: [customarmy_id], references: [customarmy_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_customarmy_id")
+  customarmy_customarmy_usernameTouserprofile        customarmy[] @relation("customarmy_usernameTouserprofile")
 }

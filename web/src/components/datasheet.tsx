@@ -1,18 +1,21 @@
 import React from "react";
 
 import type { Unit } from "@/pages/categories/[cid]/armies/[arid]/units/[uid]";
+import type { Squad } from "@/pages/categories/[cid]/armies/[arid]/units/[uid]";
 
 import styles from "./datasheet.module.css";
 
 interface IDatasheetProps {
   units: Unit[];
+  squad: Squad;
 }
 
-export const Datasheet: React.FC<IDatasheetProps> = ({ units }) => {
+export const Datasheet: React.FC<IDatasheetProps> = ({ units, squad }) => {
   return (
     <main className={`${styles.mainClass}`}>
       <div className={`${styles.headerDiv}`}>
-        <h1>Test Title</h1>
+        <h1>{squad.squad_name}</h1>
+        <h1>{squad.role}</h1>
       </div>
 
       <div className={`${styles.mainStatsContainer}`}>

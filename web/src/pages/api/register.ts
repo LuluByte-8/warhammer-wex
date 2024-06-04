@@ -15,7 +15,7 @@ type Data = z.infer<typeof registrationSchema>;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "method not allowed" });
@@ -33,7 +33,7 @@ export default async function handler(
   const user = await auth.createUser({ email, password });
 
   await prisma.userprofile.create({
-    data: { username: username, firebaseid: user.uid },
+    data: { username: username, firebase_id: user.uid },
   });
 
   const token = await auth.createCustomToken(user.uid);

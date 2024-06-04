@@ -37,23 +37,24 @@ export const UnitDisplay: React.FC<IUnitDisplay> = ({
 
       <div className={`${styles.bannercontainer}`}>
         <h1>{name}</h1>
-        <div className={`${styles.buttonwrapper}`}>
-          <Link
-            className={`${styles.unitbutton}`}
-            href={`${armyId}/units/${squadId}`}
-          >
-            <b>See squad details</b>
-          </Link>
-          <AddSquadDialog
-            name={name}
-            squadId={squadId}
-            factionId={armyId}
-            customarmies={customarmies}
-          />
-          {/* <button className={`${styles.unitbutton}`}>
-              <b>Add squad to army</b>
-            </button> */}
-        </div>
+
+        <Link
+          href={`${armyId}/units/${squadId}`}
+          key={name}
+          className={`${styles.unitlink}`}
+        >
+          <div className={`${styles.buttonwrapper}`}>
+            <button className={`${styles.unitbutton}`}>
+              <b>See unit details</b>
+            </button>
+          </div>
+        </Link>
+
+        <AddSquadDialog
+          squadId={squadId}
+          factionId={armyId}
+          customarmies={customarmies}
+        />
       </div>
     </div>
   );

@@ -1,10 +1,33 @@
 .main {
   font-family: var(--font-open-sans);
-  margin: var(--fixed-s-gap);
+  margin: auto;
+  margin-bottom: 10px;
   width: 20%;
   border: solid black 2px;
+  text-align: center;
 }
 
 .container {
   margin: var(--fixed-xs-gap);
+}
+
+.container p {
+  max-width: 350px;
+  max-height: 350px;
+  overflow: auto;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.buttonContainer button {
+  border-radius: var(--border-radius-xs);
+  background-color: var(--neongreen);
+  max-width: 200px;
+  border: 1px solid var(--black);
+  font-size: 15px;
+  cursor: pointer;
 }

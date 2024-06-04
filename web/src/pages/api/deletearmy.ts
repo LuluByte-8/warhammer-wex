@@ -12,10 +12,10 @@ export default async function handler(
     return;
   }
 
-  const squadId = req.body;
+  const caid = req.body;
 
-  const deleteUnit = await prisma.regimentmember.delete({
-    where: { regiment_member_id: +squadId },
+  const deleteUnit = await prisma.customarmy.delete({
+    where: { customarmy_id: +caid },
   });
 
   res.status(200);

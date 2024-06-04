@@ -1,9 +1,89 @@
 import React from "react";
-import * as Dialog from "@radix-ui/react-dialog";
 
+import { useAddSquadToRegiment } from "@/hooks/useAddRegiment";
+
+import { DialogComponent } from "./dialog";
 import { ICustomArmy } from "./unitdisplay";
 
 import styles from "./addsquaddialog.module.css";
+
+export const AddSquadDialog: React.FC<{
+  squadId: number;
+  factionId: string;
+  customarmies: ICustomArmy[];
+}> = ({ squadId, factionId, customarmies }) => {
+  const { addSquadToRegiment, addingSquadToRegiment, addedSquadToArmy } =
+    useAddSquadToRegiment(squadId, factionId);
+
+  return (
+    <DialogComponent
+      dialogTitle="Add Squad to Army"
+      bottomButton={
+        <button className={`${styles.TriggerButton}`}>
+          <b>Create New Army!</b>
+        </button>
+      }
+      dialogTrigger={
+        <button className={`${styles.TriggerButton}`}>
+          <b>Add squad to army</b>
+        </button>
+      }
+    >
+      {customarmies.length > 0 ? (
+        customarmies.map((customarmy) => {
+          return (
+            <div
+              key={customarmy.customarmy_id}
+              className={`${styles.customarmydisplay}`}
+            >
+              <p>{customarmy.customarmy_name}</p>
+              <button
+                className={`${styles.AddButton}`}
+                disabled={addingSquadToRegiment}
+                onClick={() => {
+                  addSquadToRegiment(customarmy.customarmy_id);
+                }}
+              >
+                Add
+              </button>
+            </div>
+          );
+        })
+      ) : (
+        <div className={`${styles.customarmydisplay}`}>
+          <p>No Armies Found!</p>
+        </div>
+      )}
+    </DialogComponent>
+  );
+};
+
+// {
+//   customarmies.length > 0 ? (
+//     customarmies.map((customarmy) => {
+//       return (
+//         <div
+//           key={customarmy.customarmy_id}
+//           className={`${styles.customarmydisplay}`}
+//         >
+//           <p>{customarmy.customarmy_name}</p>
+//           <button
+//             disabled={addingSquadToRegiment}
+//             onClick={() => {
+//               addSquadToRegiment(customarmy.customarmy_id);
+//             }}
+//           >
+//             Add
+//           </button>
+//         </div>
+//       );
+//     })
+//   ) : (
+//     <div className={`${styles.customarmydisplay}`}>
+//       <p>No Armies Found!</p>
+//     </div>
+//   );
+// }
 
 // const MyComponent = () => {
 //   return (
@@ -31,52 +111,3 @@ import styles from "./addsquaddialog.module.css";
 //     </AddSquadDialog>
 //   );
 // };
-
-export const AddSquadDialog: React.FC<
-  React.PropsWithChildren<{
-    squadId: number;
-    name: string;
-    factionId: string;
-    customarmies: ICustomArmy[];
-  }>
-> = ({ squadId, name, factionId, customarmies, children }) => {
-  return (
-    <Dialog.Root defaultOpen={false}>
-      <Dialog.Trigger asChild>
-        <button className={`${styles.TriggerButton}`}>Add Squad To Army</button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className={`${styles.DialogOverlay}`} />
-        <Dialog.Content className={`${styles.DialogContent}`}>
-          <Dialog.Title className={`${styles.DialogTitle}`}>
-            Add to army
-          </Dialog.Title>
-          <Dialog.Description className={`${styles.DialogDescription}`}>
-            {customarmies.length > 0 ? (
-              customarmies.map((customarmy) => {
-                return (
-                  <div
-                    key={customarmy.customarmy_id}
-                    className={`${styles.customarmydisplay}`}
-                  >
-                    <p>{customarmy.customarmy_name}</p>
-                    <button>Add</button>
-                  </div>
-                );
-              })
-            ) : (
-              <div>
-                <p>No Armies Found!</p>
-                <p>Make An Army Here!</p>
-              </div>
-            )}
-          </Dialog.Description>
-          {children}
-          <Dialog.Close asChild>
-            <button className={`${styles.IconButton}`}></button>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
-};

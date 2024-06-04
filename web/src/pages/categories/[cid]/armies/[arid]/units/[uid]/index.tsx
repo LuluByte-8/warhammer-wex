@@ -10,31 +10,12 @@ import styles from "./unit.module.css";
 
 const UnitPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ unit }) => {
+> = ({ unit, squad }) => {
   return (
     <main className={`${styles.main}`}>
       <NavBar />
 
-      <Datasheet units={unit} />
-      {/* 
-      {unit.map((m) => {
-        return (
-          <div key={m.id}>
-            <StatBlock
-              name={m.name}
-              movement={m.m}
-              weaponSkill={m.ws}
-              ballisticSkill={m.bs}
-              strength={m.s}
-              toughness={m.t}
-              wounds={m.w}
-              attacks={m.a}
-              leadership={m.ld}
-              save={m.sv}
-            />
-          </div>
-        );
-      })} */}
+      <Datasheet units={unit} squad={squad!} />
     </main>
   );
 };
@@ -42,6 +23,7 @@ const UnitPage: React.FC<
 export default UnitPage;
 
 export type Unit = Awaited<ReturnType<typeof prisma.units.findFirstOrThrow>>;
+export type Squad = Awaited<ReturnType<typeof prisma.squads.findFirstOrThrow>>;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
@@ -52,6 +34,11 @@ export const getServerSideProps = async (
     };
   }
   const uid = +context.query.uid;
+
+  const squad = await prisma.squads.findUnique({
+    where: { squad_id: uid },
+  });
+
   const unit = await prisma.units.findMany({
     where: {
       squad_id: uid,
@@ -64,6 +51,6 @@ export const getServerSideProps = async (
   }
 
   return {
-    props: { unit },
+    props: { unit, squad },
   };
 };

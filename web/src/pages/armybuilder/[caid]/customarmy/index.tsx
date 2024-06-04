@@ -42,7 +42,9 @@ const CustomArmy: React.FC<
           <h1>{customarmy.customarmy_name}</h1>
           <h2>Created By: {customarmy.username}</h2>
         </div>
-        <div className={`${styles.armyTitleP}`}></div>
+        <div className={`${styles.armyTitleP}`}>
+          <p>{customarmy.description}</p>
+        </div>
       </div>
 
       <div className={`${styles.units}`}>

@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS warhammer.customarmy (
     customarmy_id SERIAL PRIMARY KEY UNIQUE,
     firebaseuser_id VARCHAR NOT NULL,
     customarmy_faction TEXT NOT NULL,
-    username TEXT NOT NULL UNIQUE,
+    username TEXT NOT NULL,
+    description TEXT NOT NULL,
     customarmy_name TEXT NOT NULL,
 
     CONSTRAINT fk_firebaseuser_id FOREIGN KEY(firebaseuser_id) REFERENCES warhammer.userprofile(firebase_id) ON DELETE CASCADE,

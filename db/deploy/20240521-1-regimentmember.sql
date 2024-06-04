@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS warhammer.regimentmember (
 
     CONSTRAINT fk_squad_id FOREIGN KEY(squad_id) REFERENCES warhammer.squads(squad_id) ON DELETE CASCADE,
     CONSTRAINT fk_unit_id FOREIGN KEY(unit_id) REFERENCES warhammer.units(unit_id) ON DELETE CASCADE,
-    CONSTRAINT fk_regiment_id FOREIGN KEY(regiment_id) REFERENCES warhammer.regiments(regiment_id) ON DELETE CASCADE,
+    CONSTRAINT fk_regiment_id FOREIGN KEY(regiment_id) REFERENCES warhammer.regiments(regiment_id) ON DELETE CASCADE
    
 );
 
