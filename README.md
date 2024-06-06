@@ -35,3 +35,5 @@ Run `sqitch add <name> -n 'description'` to add a new migration.
 ### Cleaning the database
 
 Run `npm run db-clean` to clean the database.
+
+Test Message
