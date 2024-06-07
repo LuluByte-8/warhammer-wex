@@ -177,31 +177,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     };
   }
 
-  // const squadsinarmy = await prisma.squadsincustomarmy.findMany({
-  //   where: { customarmyid: +caid },
-  // });
-
-  // const myArrayOfSquads = [];
-  // for (let i = 0; i < squadsinarmy.length; i++) {
-  //   const unitsinsquad = await prisma.squads.findMany({
-  //     where: { squad_id: squadsinarmy[i].squad_id },
-  //     include: { units: {} },
-  //   });
-
-  //   myArrayOfSquads.push(...unitsinsquad);
-  // }
-
-  // const squadsinarmy = await prisma.squadsincustomarmy.findMany({
-  //   where: { customarmy_id: +caid },
-  //   include: {
-  //     squads: {
-  //       include: {
-  //         units: {},
-  //       },
-  //     },
-  //   },
-  // });
-
   const regiments = await prisma.regiments.findMany({
     where: { customarmy_id: +caid },
     include: {

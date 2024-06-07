@@ -17,17 +17,14 @@
 
 .armyTitle {
   display: flex;
-  border-bottom: solid black 1px;
   margin-left: 20px;
 }
 
 .armyTitleH {
   width: 400px;
-  border: 1px solid red;
 }
 .armyTitleP {
   width: 60%;
-  border: 1px solid black;
 }
 
 .noUnits {
