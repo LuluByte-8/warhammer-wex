@@ -1,18 +1,20 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 
-export const useAddCustomArmy = (
-  username: string,
-  firebase_id: string,
-  armyName: string,
-  armyDesc: string,
-  armyFaction: string
-) => {
+export const useAddCustomArmy = (username: string, firebase_id: string) => {
   const [adding, setAdding] = React.useState<boolean>(false);
 
   const router = useRouter();
 
-  const addCustomArmy = () => {
+  const addCustomArmy = ({
+    armyName,
+    armyDesc,
+    armyFaction,
+  }: {
+    armyName: string;
+    armyDesc: string;
+    armyFaction: string;
+  }) => {
     setAdding(true);
 
     // Fetch logic awaited here

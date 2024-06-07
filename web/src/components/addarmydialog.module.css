@@ -25,19 +25,23 @@
 
 .formContainer {
   width: 100%;
-  margin-left: 20%;
+  /* margin-left: 20%; */
 }
 
 .form {
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   gap: var(--spacing-unit-xs);
+
+  padding: var(--spacing-unit-s);
 }
 
-.form input {
-  max-width: 60%;
+.form input,
+.form textarea {
+  width: 100%;
   border-radius: var(--border-radius-s);
+  padding: var(--spacing-unit-xs);
 }
 
 .form select {
@@ -47,7 +51,6 @@
 
 .form textarea {
   resize: none;
-  max-width: 60%;
   min-height: 100px;
   border-radius: var(--border-radius-s);
 }

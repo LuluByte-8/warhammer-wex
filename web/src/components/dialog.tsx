@@ -44,9 +44,10 @@ export const DialogComponent: React.FC<
           <Dialog.Title className={`${styles.DialogTitle}`}>
             {dialogTitle}
           </Dialog.Title>
-          <Dialog.Description className={`${styles.DialogDescription}`}>
-            {children}
-          </Dialog.Description>
+          {/* <Dialog.Description className={`${styles.DialogDescription}`}>
+            
+          </Dialog.Description> */}
+          <div className={styles.DialogDescription}>{children}</div>
           {bottomButton}
           <Dialog.Close asChild>
             <button className={`${styles.IconButton}`}>&#x2715;</button>

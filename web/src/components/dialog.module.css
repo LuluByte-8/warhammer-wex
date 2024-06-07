@@ -9,8 +9,7 @@
 }
 
 .DialogContent {
-  color: var(--white);
-  text-align: center;
+  color: var(--white); /* text-align: center; */
   background-color: rgb(0, 0, 0);
   border-radius: var(--border-radius-xs);
   box-shadow:

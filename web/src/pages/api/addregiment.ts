@@ -62,8 +62,8 @@ export default async function handler(
       data: [...unitArray],
     });
 
-    res.status(201).json({ added: "Pass" });
+    res.status(201);
   } else {
-    res.status(201).json({ added: "Fail" });
+    res.status(201);
   }
 }

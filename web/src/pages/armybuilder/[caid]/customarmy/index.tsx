@@ -1,10 +1,15 @@
+import * as React from "react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import nookies from "nookies";
 
-import { CustomArmyUnitDisplay } from "@/components/customarmyunitdisplay";
+import {
+  CustomArmyUnitDisplay,
+  IRegiment,
+} from "@/components/customarmyunitdisplay";
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
+import { useUpdateCustomArmy } from "@/hooks/useUpdateCustomArmy";
 import { firebaseAdmin } from "@/lib/firebaseAdmin";
 import prisma from "@/lib/prisma";
 
@@ -12,22 +17,72 @@ import hero from "../../../../assets/CustomArmyHero.jpeg";
 
 import styles from "./customarmy.module.css";
 
+type UnitId = number;
+type RegimentId = number;
+
+export interface ICustomArmy extends Record<RegimentId, IRegiment> {}
+
 const CustomArmy: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ customarmy, squads, units, regimentMembers, owner }) => {
-  type RegimentMembers = (typeof regimentMembers)[0];
+  const intialCustomArmyState: ICustomArmy = React.useMemo(
+    () =>
+      regimentMembers.reduce((agg, rm) => {
+        if (!agg[rm.regiment_id]) {
+          agg[rm.regiment_id] = {
+            regiment_id: rm.regiment_id,
+            squad_id: rm.squad_id,
+          };
+        }
 
-  const groupedRegimentMembers = regimentMembers.reduce(
-    (agg, rm) => {
-      if (!agg[rm.regiment_id]) {
-        agg[rm.regiment_id] = [] as Array<RegimentMembers>;
-      }
+        const currentUnitCount = agg[rm.regiment_id][rm.unit_id] ?? 0;
 
-      agg[rm.regiment_id].push(rm);
-      return agg;
-    },
-    {} as Record<number, Array<RegimentMembers>>
+        agg[rm.regiment_id][rm.unit_id] = currentUnitCount + 1;
+
+        return agg;
+      }, {} as ICustomArmy),
+    [regimentMembers]
   );
+
+  const [currentArmy, setCurrentArmy] = React.useState<ICustomArmy>(
+    intialCustomArmyState
+  );
+
+  const { updateCustomArmy, updatingCustomArmy } = useUpdateCustomArmy(
+    customarmy.customarmy_id
+  );
+
+  const getSquadModifierFns = (regimentId: RegimentId) => {
+    const addUnit = (unitId: number) => {
+      setCurrentArmy((current) => {
+        const val = current[regimentId][unitId] ?? 0;
+        const unit = units.find((u) => u.unit_id === unitId);
+        const unitMax = unit?.maxunits ?? 0;
+        const newVal = val + 1 >= +unitMax ? unitMax : val + 1;
+
+        return {
+          ...current,
+          [regimentId]: { ...current[regimentId], [unitId]: newVal },
+        };
+      });
+    };
+
+    const removeUnit = (unitId: number) => {
+      setCurrentArmy((current) => {
+        const val = current[regimentId][unitId] ?? 0;
+        const unit = units.find((u) => u.unit_id === unitId);
+        const unitMin = unit?.minunits ?? 0;
+        const newVal = val - 1 <= unitMin ? unitMin : val - 1;
+
+        return {
+          ...current,
+          [regimentId]: { ...current[regimentId], [unitId]: newVal },
+        };
+      });
+    };
+
+    return { addUnit, removeUnit };
+  };
 
   return (
     <main className={`${styles.main}`}>
@@ -47,6 +102,16 @@ const CustomArmy: React.FC<
         </div>
       </div>
 
+      <div className={`${styles.saveButtonContainer}`}>
+        <button
+          className={`${styles.saveButton}`}
+          // disabled={updatingCustomArmy}
+          onClick={() => updateCustomArmy(currentArmy, intialCustomArmyState)}
+        >
+          Save Changes
+        </button>
+      </div>
+
       <div className={`${styles.units}`}>
         {squads.length === 0 ? (
           <div className={`${styles.noUnits}`}>
@@ -58,25 +123,22 @@ const CustomArmy: React.FC<
           </div>
         ) : (
           <div className={`${styles.units}`}>
-            {Object.entries(groupedRegimentMembers).map(
-              ([regiment_id, members]) => {
-                if (members.length === 0) return null;
+            {Object.entries(currentArmy).map(([regiment_id, regiment]) => {
+              const { addUnit, removeUnit } = getSquadModifierFns(+regiment_id);
 
-                return (
-                  <CustomArmyUnitDisplay
-                    key={regiment_id}
-                    squads={
-                      squads.find((s) => s.squad_id === members[0].squad_id)!
-                    }
-                    units={units}
-                    customarmy={customarmy}
-                    regiment_id={+regiment_id}
-                    regimentmembers={members}
-                    owner={owner}
-                  />
-                );
-              }
-            )}
+              return (
+                <CustomArmyUnitDisplay
+                  key={regiment_id}
+                  squads={squads.find((s) => s.squad_id === regiment.squad_id)!}
+                  units={units}
+                  customarmy={customarmy}
+                  regiment={regiment}
+                  owner={owner}
+                  onAddUnit={addUnit}
+                  onRemoveUnit={removeUnit}
+                />
+              );
+            })}
           </div>
         )}
       </div>

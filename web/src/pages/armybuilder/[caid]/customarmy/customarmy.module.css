@@ -47,3 +47,17 @@
   flex-wrap: wrap;
   overflow: scroll;
 }
+
+.saveButtonContainer {
+  text-align: center;
+}
+
+.saveButton {
+  padding: var(--spacing-unit-xxs) var(--spacing-unit-s);
+  margin-top: 10px;
+  border-radius: var(--border-radius-xs);
+  background-color: var(--neongreen);
+  border: 1px solid var(--black);
+  font-size: 15px;
+  cursor: pointer;
+}

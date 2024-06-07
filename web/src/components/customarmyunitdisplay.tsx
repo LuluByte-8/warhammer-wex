@@ -8,29 +8,34 @@ import type {
   Units,
 } from "@/pages/armybuilder/[caid]/customarmy";
 
-interface RegimentMembers {
-  regiment_member_id: number;
+type UnitId = number;
+type RegimentId = number;
+
+type IRegimentDetails = Record<UnitId, number>;
+
+export interface IRegiment extends IRegimentDetails {
+  regiment_id: RegimentId;
   squad_id: number;
-  regiment_id: number;
-  unit_id: number;
 }
 
 interface ICustomArmyUnitDisplay {
   squads: Squads;
   units: Units[];
   customarmy: CustomArmy;
-  regiment_id: number;
   owner: boolean;
-  regimentmembers: RegimentMembers[];
+  regiment: IRegiment;
+  onAddUnit: (unitId: UnitId) => void;
+  onRemoveUnit: (unitId: UnitId) => void;
 }
 
 export const CustomArmyUnitDisplay: React.FC<ICustomArmyUnitDisplay> = ({
   squads,
   units,
   customarmy,
-  regiment_id,
   owner,
-  regimentmembers,
+  regiment,
+  onAddUnit,
+  onRemoveUnit,
 }) => {
   const apiUrl = "http://localhost:3000/api/deleteunit";
   const RemoveUnit = async (squad_Id: any) => {
@@ -40,58 +45,52 @@ export const CustomArmyUnitDisplay: React.FC<ICustomArmyUnitDisplay> = ({
     });
   };
 
-  const unitMap = React.useMemo(() => {
-    const map: Map<string, number> = new Map();
+  const { squad_id, regiment_id, ...unitMap } = regiment;
 
-    regimentmembers.forEach((rm) => {
-      const unitName = units.find((unit) => unit.unit_id === rm.unit_id)?.name;
+  const getUnitName = (unitId: number) => {
+    const unit = units.find((u) => u.unit_id === unitId);
 
-      if (!unitName) {
-        return;
-      }
+    return unit?.name ?? "";
+  };
 
-      map.set(unitName, (map.get(unitName) ?? 0) + 1);
-    });
-    return map;
-  }, [regimentmembers, units]);
+  const getUnitCost = (unitId: number) => {
+    const unitCost = units.find((u) => u.unit_id === unitId);
 
-  const getUnitCost = Array.from(unitMap.entries()).map(([key, value]) => {
-    const unit = units.find((u) => u.name === key);
+    return unitCost?.cost ?? 0;
+  };
 
-    if (!unit) {
-      return;
-    }
+  const getRegimentCost = (regiment: IRegimentDetails) => {
+    return Object.entries(regiment).reduce((totalCost, [unitId, count]) => {
+      const unitTotalCost = getUnitCost(+unitId) * count;
 
-    return unit.cost * value;
-  });
-
-  const squadCost = getUnitCost.reduce((acc, curr: any) => acc + curr, 0);
+      return totalCost + unitTotalCost;
+    }, 0);
+  };
 
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.bannercontainer}`}>
         <h1>{squads.squad_name}</h1>
-        {/* {regimentmembers.map((member, i) => {
-          if (member.squad_id === squads.squad_id) {
-            return (
-              <p key={i}>
-                {units.find((unit) => unit.unit_id === member.unit_id)?.name ??
-                  ""}
-              </p>
-            );
-          }
-        })} */}
-
         <div>
-          {Array.from(unitMap.entries()).map(([key, value]) => {
+          {Object.entries(unitMap).map(([unitId, count]) => {
             return (
-              <div key={key} className={`${styles.unitContainer}`}>
-                <p className={`${styles.unitName}`}>{key}</p>
-                <p className={`${styles.numUnits}`}>{value}</p>
+              <div key={unitId} className={`${styles.unitContainer}`}>
+                <p className={`${styles.unitName}`}>{getUnitName(+unitId)}</p>
+                <p className={`${styles.numUnits}`}>{count}</p>
                 {owner.valueOf() ? (
                   <>
-                    <button className={`${styles.addbutton}`}>+</button>
-                    <button className={`${styles.addbutton}`}>-</button>
+                    <button
+                      className={`${styles.addbutton}`}
+                      onClick={() => onAddUnit(+unitId)}
+                    >
+                      +
+                    </button>
+                    <button
+                      className={`${styles.addbutton}`}
+                      onClick={() => onRemoveUnit(+unitId)}
+                    >
+                      -
+                    </button>
                   </>
                 ) : (
                   <></>
@@ -100,7 +99,9 @@ export const CustomArmyUnitDisplay: React.FC<ICustomArmyUnitDisplay> = ({
             );
           })}
 
-          <p className={`${styles.unitName}`}>Point Cost: {squadCost}</p>
+          <p className={`${styles.unitName}`}>
+            Point Cost: {getRegimentCost(unitMap)}
+          </p>
         </div>
 
         <Link
@@ -118,7 +119,7 @@ export const CustomArmyUnitDisplay: React.FC<ICustomArmyUnitDisplay> = ({
         <div className={`${styles.buttonwrapper}`}>
           <button
             className={`${styles.unitbutton}`}
-            onClick={() => RemoveUnit(regiment_id)}
+            onClick={() => RemoveUnit(regiment.regiment_id)}
           >
             <b>Remove squad from army</b>
           </button>
