@@ -21,8 +21,7 @@ export default async function handler(
 
   Object.entries(currentArmy).map(([key, regiment]) => {
     if (+key !== regiment.regiment_id) {
-      res.status(401);
-      return;
+      return res.status(401).send("");
     }
   });
 
@@ -56,8 +55,7 @@ export default async function handler(
         unitData.count > minMax!.maxunits ||
         unitData.count < minMax!.minunits
       ) {
-        res.status(401);
-        return;
+        return res.status(401).send("");
       }
     });
   });
@@ -130,7 +128,7 @@ export default async function handler(
     });
   });
 
-  res.status(201);
+  return res.status(201).json({ message: "Passed" });
 }
 
 // for (let index = 0; index < item.extra; index++) {
